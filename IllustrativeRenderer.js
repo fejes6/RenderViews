@@ -51,36 +51,12 @@ scene.add(mesh2);
     self.highlighted = [];
     self.pickingUnlocked = true;
 
-    self.onDocumentKeyDown = function(event)
-    {
-        if ((self.picked) && (self.pickingUnlocked) && (event.key == "Shift")) {
-            self.pickingUnlocked = false;
-            var node = self.resolveNode(self.picked);
-            node.shape.interaction.visible(false);
-            var parent = node.seed.GetParentShape(node.shape);
-            if (parent) {
-                parent.interaction.visible(true);
-                self.highlighted.push(parent);
-            }
-        }
-    }
-
-    self.onDocumentKeyUp = function (event) {
-        while (self.highlighted.length > 0) {
-            self.highlighted.pop().interaction.visible(false);
-        }
-        if (!self.pickingUnlocked) {
-            var node = self.resolveNode(self.picked);
-            node.shape.interaction.visible(true);
-            self.pickingUnlocked = true;
-        }
-    }
-
+   
     //reference to the mesh being currently picked; null if none
     self.picked = null;
     //material wich substitutes the default mesh material when a mesh is picked
-    self.pickedMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true });
-    //self.pickedMaterial = new THREE.MeshBasicMaterial({ color: 'red', blending: THREE.NoBlending });
+    //self.pickedMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true });
+    self.pickedMaterial = new THREE.MeshBasicMaterial({ color: 'red', blending: THREE.NoBlending });
 
     //At last we add a new update method
     self.updateCalls.push(function () {
