@@ -65,7 +65,7 @@ function InteractiveThreeRenderer(domQuery) { //for a whole window call with dom
     //reference to the mesh being currently picked; null if none
     self.picked = null;
     //material wich substitutes the default mesh material when a mesh is picked
-    self.pickedMaterial = new THREE.MeshBasicMaterial({ color: 'blue', blending: THREE.NoBlending });
+    self.pickedMaterial = new THREE.MeshBasicMaterial({ color: 'green', blending: THREE.NoBlending });
 
     //At last we add a new update method
     self.updateCalls.push(function () {
