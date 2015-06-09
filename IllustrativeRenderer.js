@@ -1,23 +1,8 @@
 ﻿function IllustrativeRenderer(domQuery) {
     var self = BasicThreeRenderer(domQuery);
-
-/*    
-        this.self = function() {
-var cloned = mesh.children[0].geometry.self();
-var materials = [
-        new THREE.MeshLambertMaterial( { opacity:0.6,color: 0xff44ff, transparent:true } ),
-        new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true } )
-];
-var mesh2 = THREE.SceneUtils.createMultiMaterialObject(cloned,materials);
-mesh2.children.forEach(function(e) {e.castShadow=true});
-mesh2.translateX(5);
-mesh2.translateZ(5);
-mesh2.name="clone";
-scene.remove(scene.getChildByName("clone"));
-scene.add(mesh2);
-}*/
-
-
+function InteractiveThreeRenderer(domQuery) { //for a whole window call with domQuery "<body>"
+    //inherit the base class
+    var self = new BasicThreeRenderer(domQuery);
 
     self.resolveNode = function(mesh)
     {
@@ -52,12 +37,35 @@ scene.add(mesh2);
     self.highlighted = [];
     self.pickingUnlocked = true;
 
-   
+    self.onDocumentKeyDown = function(event)
+    {
+        if ((self.picked) && (self.pickingUnlocked) && (event.key == "Shift")) {
+            self.pickingUnlocked = false;
+            var node = self.resolveNode(self.picked);
+            node.shape.interaction.visible(false);
+            var parent = node.seed.GetParentShape(node.shape);
+            if (parent) {
+                parent.interaction.visible(true);
+                self.highlighted.push(parent);
+            }
+        }
+    }
+
+    self.onDocumentKeyUp = function (event) {
+        while (self.highlighted.length > 0) {
+            self.highlighted.pop().interaction.visible(false);
+        }
+        if (!self.pickingUnlocked) {
+            var node = self.resolveNode(self.picked);
+            node.shape.interaction.visible(true);
+            self.pickingUnlocked = true;
+        }
+    }
+
     //reference to the mesh being currently picked; null if none
     self.picked = null;
     //material wich substitutes the default mesh material when a mesh is picked
-    //self.pickedMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true });
-    self.pickedMaterial = new THREE.MeshBasicMaterial({ color: 'red', blending: THREE.NoBlending });
+    self.pickedMaterial = new THREE.MeshBasicMaterial({ color: 'blue', blending: THREE.NoBlending });
 
     //At last we add a new update method
     self.updateCalls.push(function () {
@@ -120,14 +128,6 @@ scene.add(mesh2);
                     }
                     //Store reference to closest mesh as current intersection mesh
                     this.picked = intersects[0].object;
-                    
-                    for (i in this.Meshes) {
-                            if(this.Meshes[i] == this.picked){
-                                this.picked.material = this.pickedMaterial;
-                            }
-                        this.Meshes[i].material = this.notpickedMaterial;
-                    }
-                    
                     //The same as above but compressed into a single line
                     SeedWidgets.GetById(this.Seeds[this.picked.name]).GetShape(this.picked.name).interaction.picked(true);
                 }
@@ -187,5 +187,7 @@ scene.add(mesh2);
         }        
     });
 
+    return self;
+}
     return self;
 }
