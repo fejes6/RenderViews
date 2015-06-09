@@ -1,8 +1,5 @@
 ﻿function IllustrativeRenderer(domQuery) {
     var self = BasicThreeRenderer(domQuery);
-function InteractiveThreeRenderer(domQuery) { //for a whole window call with domQuery "<body>"
-    //inherit the base class
-    var self = new BasicThreeRenderer(domQuery);
 
     self.resolveNode = function(mesh)
     {
@@ -189,5 +186,4 @@ function InteractiveThreeRenderer(domQuery) { //for a whole window call with dom
 
     return self;
 }
-    return self;
-}
+
