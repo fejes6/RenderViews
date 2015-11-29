@@ -68,12 +68,12 @@
     //***********
     
     
-        for (var f = 0, fl = self.geometry.faces.length; f < fl; f++) {
-        var face = self.geometry.faces[ f ];
+        for (var f = 0, fl = self.picked.geometry.faces.length; f < fl; f++) {
+        var face = self.picked.geometry.faces[ f ];
         var centroid = new THREE.Vector3(0, 0, 0);
-        centroid.add(self.geometry.vertices[face.a]);
-        centroid.add(self.geometry.vertices[face.b]);
-        centroid.add(self.geometry.vertices[face.c]);
+        centroid.add(self.picked.geometry.vertices[face.a]);
+        centroid.add(self.picked.geometry.vertices[face.b]);
+        centroid.add(self.picked.geometry.vertices[face.c]);
         centroid.divideScalar(3);
 
         var arrow = new THREE.ArrowHelper(
@@ -83,7 +83,7 @@
                 0x3333FF,
                 0.5,
                 0.5);
-        self.add(arrow);
+        self.picked.add(arrow);
     }
     //***********
     
