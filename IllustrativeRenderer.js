@@ -63,6 +63,32 @@
     self.picked = null;
     //material wich substitutes the default mesh material when a mesh is picked
     self.pickedMaterial = new THREE.MeshNormalMaterial({color: 0x7777ff});
+    
+    
+    //***********
+    
+    
+        for (var f = 0, fl = self.geometry.faces.length; f < fl; f++) {
+        var face = self.geometry.faces[ f ];
+        var centroid = new THREE.Vector3(0, 0, 0);
+        centroid.add(self.geometry.vertices[face.a]);
+        centroid.add(self.geometry.vertices[face.b]);
+        centroid.add(self.geometry.vertices[face.c]);
+        centroid.divideScalar(3);
+
+        var arrow = new THREE.ArrowHelper(
+                face.normal,
+                centroid,
+                2,
+                0x3333FF,
+                0.5,
+                0.5);
+        self.add(arrow);
+    }
+    //***********
+    
+    
+    
     //self.pickedMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
     //self.pickedMaterial = new THREE.MeshBasicMaterial({ color: 'blue', transparent: true, blending: THREE.NoBlending });
     //color: 0x00ff00, transparent: true, blending: THREE.MultiplyBlending
