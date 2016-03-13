@@ -1,1 +1,1 @@
-RenderWidgets.Add3DRenderer(new BasicThreeRenderer('#basicRendererContainer'));
+RenderWidgets.Add3DRenderer(new IllustrativeRenderer('#basicRendererContainer'));
