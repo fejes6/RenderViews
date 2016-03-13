@@ -1,7 +1,7 @@
 'use strict'
-function BasicThreeRenderer(domQuery, basicOffscreen) { //for whole window call with domQuery "<body>"
+function IllustrativeRenderer(domQuery, basicOffscreen) { //for whole window call with domQuery "<body>"
     //A simple inhericance concept. We create an object of the AbstractRenderer type and then we change and extend it to our needs. At the end we return the self variable.
-    var self = AbstractRenderer(domQuery);
+    var self = BasicTreeRenderer(domQuery);
 
     //A map with three.js meshes with shape IDs as keys. Only for mergning and picking, not rendered.
     self.Meshes = {};
