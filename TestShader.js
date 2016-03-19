@@ -4,7 +4,7 @@
  * Color correction
  */
 
-THREE.ColorCorrectionShader = {
+THREE.TestShader = {
 
 	uniforms: {
 
