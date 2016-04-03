@@ -4,7 +4,6 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
     var self = BasicThreeRenderer(domQuery);
     
     mat = new THREE.ShaderMaterial({  
-      uniforms: uniforms,
       vertexShader: document.getElementById('vertexShader').textContent,
       fragmentShader: document.getElementById('fragmentShader').textContent
     });
