@@ -162,32 +162,16 @@ function onInitRenderer(domQuery) {
         renderTarget = new THREE.WebGLRenderTarget(canvasWidth, canvasHeight, renderTargetParams);
         composer = new THREE.EffectComposer(renderer, renderTarget);
 
-        var renderScene = new THREE.RenderPass(scene, camera);
-        //renderScene.clear = false;
+        composer.addPass( = new THREE.RenderPass(scene, camera));
 
         depthTargetParams = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat };
         depthTarget = new THREE.WebGLRenderTarget(canvasWidth, canvasHeight, depthTargetParams);
 
-        colorfixPass = new THREE.ShaderPass(THREE.TestShader);
+        var colorfixPass = new THREE.ShaderPass(THREE.TestShader);
         colorfixPass.uniforms['mulRGB'].value.set(1.081, 1.081, 1.081);
-/*
-        ssaoPass = new THREE.ShaderPass(THREE.SSAOShader);
-        ssaoPass.uniforms['tDepth'].value = depthTarget;
-        ssaoPass.uniforms['size'].value.set(canvasWidth, canvasHeight);
-        ssaoPass.uniforms['cameraNear'].value = camera.near;
-        ssaoPass.uniforms['cameraFar'].value = camera.far;
-        ssaoPass.uniforms['aoClamp'].value = 0.4;
-        //ssaoPass.renderToScreen = true;
 
-        // fast aproximate anti-alising
-        fxaaPass = new THREE.ShaderPass(THREE.FXAAShader);
-        fxaaPass.uniforms['resolution'].value.set(1.0 / canvasWidth, 1.0 / canvasHeight);
-        fxaaPass.renderToScreen = true;
-*/
-        composer.addPass(renderScene);
-        composer.addPass(ssaoPass);
         composer.addPass(colorfixPass);
-        composer.addPass(fxaaPass);
+
     }
 
     //axes
