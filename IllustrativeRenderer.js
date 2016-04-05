@@ -12,7 +12,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 				composer.addPass( new THREE.RenderPass( scene, camera ) );
 
 				var effect = new THREE.ShaderPass( THREE.TestShader );
-				effect.uniforms[ 'scale' ].value = 4;
+				effect.uniforms[ 'opacity' ].value = 0.5;
 				composer.addPass( effect );
 
 				var effect = new THREE.ShaderPass( THREE.RGBShiftShader );
