@@ -15,8 +15,8 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 				effect.uniforms[ 'opacity' ].value = 0.5;
 				composer.addPass( effect );
 
-				var effect = new THREE.ShaderPass( THREE.RGBShiftShader );
-				effect.uniforms[ 'amount' ].value = 0.0015;
+				var effect = new THREE.ShaderPass( THREE.TestRedShader );
+				effect.uniforms[ 'opacity' ].value = 0.7;
 				effect.renderToScreen = true;
 				composer.addPass( effect );
 
