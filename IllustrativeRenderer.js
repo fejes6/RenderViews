@@ -22,6 +22,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 
 				//
 
+composer.render();
 
     return self;
 }
