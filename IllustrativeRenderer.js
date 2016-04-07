@@ -7,7 +7,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
    
    
    				// postprocessing
-
+    self.initCalls.push(function () {
 				this.composer = new THREE.EffectComposer( this.renderer );
 				this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) );
 
@@ -15,7 +15,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 				effect.uniforms[ 'opacity' ].value = 0.7;
 				effect.renderToScreen = true;
 				this.composer.addPass( effect );
-
+   });
 				//
 				
    self.renderCalls.push(function () {
