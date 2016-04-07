@@ -3,26 +3,24 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
     //A simple inhericance concept. We create an object of the AbstractRenderer type and then we change and extend it to our needs. At the end we return the self variable.
     var self = BasicThreeRenderer(domQuery);
    
-   var composer, renderer, scene, camera;
+    self.composer = null;
    
    
    				// postprocessing
 
-				composer = new THREE.EffectComposer( renderer );
-				composer.addPass( new THREE.RenderPass( scene, camera ) );
-
-				var effect = new THREE.ShaderPass( THREE.TestShader );
-				effect.uniforms[ 'opacity' ].value = 0.5;
-				composer.addPass( effect );
+				this.composer = new THREE.EffectComposer( this.renderer );
+				this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) );
 
 				var effect = new THREE.ShaderPass( THREE.TestRedShader );
 				effect.uniforms[ 'opacity' ].value = 0.7;
 				effect.renderToScreen = true;
-				composer.addPass( effect );
+				this.composer.addPass( effect );
 
 				//
-
-composer.render();
+				
+   self.renderCalls.push(function () {
+	this.composer.render();
+   });
 
     return self;
 }
