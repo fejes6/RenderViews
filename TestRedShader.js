@@ -5,7 +5,7 @@
  * Full-screen textured quad shader
  */
 
-THREE.CopyShader = {
+THREE.TestRedShader = {
 
 	uniforms: {
 
