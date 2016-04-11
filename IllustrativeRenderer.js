@@ -20,7 +20,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 				
 
    
-   self.renderCalls = []; //tym zrusis vykreslovanie BasicThreeRenderera
+   //self.renderCalls = []; //tym zrusis vykreslovanie BasicThreeRenderera
    self.renderCalls.push(function () {
     //okopirovane z BasicThreeRenderera, vycisti viewport
         if (!this.doesWebGL)
