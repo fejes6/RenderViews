@@ -20,14 +20,13 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 				
 
    
-   //self.renderCalls = []; //tym zrusis vykreslovanie BasicThreeRenderera
+   self.renderCalls = []; //tym zrusis vykreslovanie BasicThreeRenderera
    self.renderCalls.push(function () {
     //okopirovane z BasicThreeRenderera, vycisti viewport
         if (!this.doesWebGL)
-            this.renderer.domElement.getContext("2d").clearRect(0, 0,
-   self.container.innerWidth() - 1, self.container.innerHeight() - 1);
+            this.renderer.domElement.getContext("2d").clearRect(0, 0,self.container.innerWidth() - 1, self.container.innerHeight() - 1);
         else
-            this.renderer.clear();
+            //this.renderer.clear();
 
    //este bude fajn sem neskor dorobit offscreen rrender, aby fungoval picking
    //ale zatial staci takto
