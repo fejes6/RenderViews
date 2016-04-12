@@ -12,7 +12,8 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 				this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) );
 
 				var effect = new THREE.ShaderPass( THREE.TestRedShader );
-				effect.uniforms[ 'opacity' ].value = 0.2;
+				effect.uniforms['resolution'].value.set(1.0 / canvasWidth, 1.0 / canvasHeight);
+				//effect.uniforms[ 'opacity' ].value = 0.2;
 				effect.renderToScreen = true;
 				this.composer.addPass( effect );
    });
