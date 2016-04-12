@@ -13,7 +13,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 
 				var effect = new THREE.ShaderPass( THREE.TestRedShader );
 				effect.uniforms[ 'scale' ].value = 4;
-				//effect.uniforms[ 'opacity' ].value = 0.2;
+//test 1 ok				effect.uniforms[ 'opacity' ].value = 0.2;
 				effect.renderToScreen = true;
 				this.composer.addPass( effect );
    });
