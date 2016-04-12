@@ -4,7 +4,7 @@
  *
  * Full-screen textured quad shader
  */
-
+/**
 THREE.TestRedShader = {
 
 	uniforms: {
@@ -40,7 +40,7 @@ THREE.TestRedShader = {
 *                       "vec4 texel = texture2D( tDiffuse, vUv );",
 *			"gl_FragColor = opacity * texel;",
 *
-  ********************************************************************/
+  ********************************************************************
   
   "gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);",
   
@@ -49,7 +49,7 @@ THREE.TestRedShader = {
 	].join("\n")
 
 };
-
+*/
 /**
  * @author alteredq / http://alteredqualia.com/
  * @author davidedc / http://www.sketchpatch.net/
@@ -59,7 +59,7 @@ THREE.TestRedShader = {
  * - WebGL port by @supereggbert
  * http://www.glge.org/demos/fxaa/
  */
-/**
+
 THREE.TestRedShader = {
 
 	uniforms: {
@@ -143,4 +143,4 @@ THREE.TestRedShader = {
 	].join("\n")
 
 };
-*/
+
