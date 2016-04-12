@@ -12,10 +12,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 				this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) );
 
 				var effect = new THREE.ShaderPass( THREE.TestRedShader );
-				effect.uniforms[ 'lum_threshold_1' ].value = 1.0;
-				effect.uniforms[ 'lum_threshold_2' ].value = 0.7;
-				effect.uniforms[ 'lum_threshold_3' ].value = 0.5;
-				effect.uniforms[ 'lum_threshold_4' ].value = 0.3;
+            			effect.uniforms['aspect'].value.set(1.0/1366, 1.0/768);
 //test 2 ok				effect.uniforms[ 'scale' ].value = 4;
 //test 1 ok				effect.uniforms[ 'opacity' ].value = 0.2;
 				effect.renderToScreen = true;
