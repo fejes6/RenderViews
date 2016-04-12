@@ -141,10 +141,10 @@ THREE.TestRedShader = {
 		"vx_offset":    { type: "f" },
 		"rt_w":   { type: "f" },
 		"rt_h":    { type: "f" },
-		"hatch_y_offset":    { type: "f", value: 5.0 }
-		"lum_threshold_1":    { type: "f", value: 1.0 }
-		"lum_threshold_2":    { type: "f", value: 0.7 }
-		"lum_threshold_3":    { type: "f", value: 0.5 }
+		"hatch_y_offset":    { type: "f", value: 5.0 },
+		"lum_threshold_1":    { type: "f", value: 1.0 },
+		"lum_threshold_2":    { type: "f", value: 0.7 },
+		"lum_threshold_3":    { type: "f", value: 0.5 },
 		"lum_threshold_4":    { type: "f", value: 0.3 }
 
 	},
