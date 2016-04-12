@@ -137,80 +137,83 @@ THREE.TestRedShader = {
 
 	uniforms: {
 
-		"sceneTex": { type: "t", value: null },
-		"vx_offset":    { type: "f" },
-		"rt_w":   { type: "f" },
-		"rt_h":    { type: "f" },
-		"hatch_y_offset":    { type: "f", value: 5.0 },
-		"lum_threshold_1":    { type: "f", value: 1.0 },
-		"lum_threshold_2":    { type: "f", value: 0.7 },
-		"lum_threshold_3":    { type: "f", value: 0.5 },
-		"lum_threshold_4":    { type: "f", value: 0.3 }
-
+		"tDiffuse": { type: "t", value: null },
+		"aspect":    { type: "v2", value: new THREE.Vector2( 512, 512 ) },
 	},
 
 	vertexShader: [
-		
+
+		"varying vec2 vUv;",
 
 		"void main() {",
 
-			"gl_Position = ftransform();",
-			"gl_TexCoord[0] = gl_MultiTexCoord0;",
-			
+			"vUv = uv;",
+			"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+
 		"}"
 
 	].join( "\n" ),
 
 	fragmentShader: [
 
-		
-		"uniform sampler2D sceneTex;", // 0
-"uniform float vx_offset;",
-"uniform float rt_w;", // GeeXLab built-in
-"uniform float rt_h;", // GeeXLab built-in
-"uniform float hatch_y_offset;", // 5.0
-"uniform float lum_threshold_1;", // 1.0
-"uniform float lum_threshold_2;", // 0.7
-"uniform float lum_threshold_3;", // 0.5
-"uniform float lum_threshold_4;", // 0.3
-"void main(){", 
-  "vec2 uv = gl_TexCoord[0].xy;",
-  
-  "vec3 tc = vec3(1.0, 0.0, 0.0);",
-  "if (uv.x &lt; (vx_offset-0.005)){",
-    "float lum = length(texture2D(sceneTex, uv).rgb);",
-    "tc = vec3(1.0, 1.0, 1.0);",
-  
-    "if (lum &lt; lum_threshold_1){",
-      "if (mod(gl_FragCoord.x + gl_FragCoord.y, 10.0) == 0.0)", 
-        "tc = vec3(0.0, 0.0, 0.0);",
-    "}",  
-  
-    "if (lum &lt; lum_threshold_2){",
-      "if (mod(gl_FragCoord.x - gl_FragCoord.y, 10.0) == 0.0)", 
-        "tc = vec3(0.0, 0.0, 0.0);",
-    "}",  
-  
-    "if (lum &lt; lum_threshold_3){",
-      "if (mod(gl_FragCoord.x + gl_FragCoord.y - hatch_y_offset, 10.0) == 0.0)", 
-        "tc = vec3(0.0, 0.0, 0.0);",
-    "}",  
-  
-    "if (lum &lt; lum_threshold_4){",
-      "if (mod(gl_FragCoord.x - gl_FragCoord.y - hatch_y_offset, 10.0) == 0.0)", 
-        "tc = vec3(0.0, 0.0, 0.0);",
-    "}",
-  "}",
-  "else if (uv.x&gt;=(vx_offset+0.005)){",
-    "tc = texture2D(sceneTex, uv).rgb;",
-  "}",
-  
-  "gl_FragColor = vec4(tc, 1.0);",
-"}"
+		"uniform sampler2D tDiffuse;",
+		"varying vec2 vUv;",
+
+		"uniform vec2 aspect;",
+
+		"vec2 texel = vec2(1.0 / aspect.x, 1.0 / aspect.y);",
 
 
-		
+		"mat3 G[9];",
+
+		// hard coded matrix values!!!! as suggested in https://github.com/neilmendoza/ofxPostProcessing/blob/master/src/EdgePass.cpp#L45
+
+		"const mat3 g0 = mat3( 0.3535533845424652, 0, -0.3535533845424652, 0.5, 0, -0.5, 0.3535533845424652, 0, -0.3535533845424652 );",
+		"const mat3 g1 = mat3( 0.3535533845424652, 0.5, 0.3535533845424652, 0, 0, 0, -0.3535533845424652, -0.5, -0.3535533845424652 );",
+		"const mat3 g2 = mat3( 0, 0.3535533845424652, -0.5, -0.3535533845424652, 0, 0.3535533845424652, 0.5, -0.3535533845424652, 0 );",
+		"const mat3 g3 = mat3( 0.5, -0.3535533845424652, 0, -0.3535533845424652, 0, 0.3535533845424652, 0, 0.3535533845424652, -0.5 );",
+		"const mat3 g4 = mat3( 0, -0.5, 0, 0.5, 0, 0.5, 0, -0.5, 0 );",
+		"const mat3 g5 = mat3( -0.5, 0, 0.5, 0, 0, 0, 0.5, 0, -0.5 );",
+		"const mat3 g6 = mat3( 0.1666666716337204, -0.3333333432674408, 0.1666666716337204, -0.3333333432674408, 0.6666666865348816, -0.3333333432674408, 0.1666666716337204, -0.3333333432674408, 0.1666666716337204 );",
+		"const mat3 g7 = mat3( -0.3333333432674408, 0.1666666716337204, -0.3333333432674408, 0.1666666716337204, 0.6666666865348816, 0.1666666716337204, -0.3333333432674408, 0.1666666716337204, -0.3333333432674408 );",
+		"const mat3 g8 = mat3( 0.3333333432674408, 0.3333333432674408, 0.3333333432674408, 0.3333333432674408, 0.3333333432674408, 0.3333333432674408, 0.3333333432674408, 0.3333333432674408, 0.3333333432674408 );",
+
+		"void main(void)",
+		"{",
+
+			"G[0] = g0,",
+			"G[1] = g1,",
+			"G[2] = g2,",
+			"G[3] = g3,",
+			"G[4] = g4,",
+			"G[5] = g5,",
+			"G[6] = g6,",
+			"G[7] = g7,",
+			"G[8] = g8;",
+
+			"mat3 I;",
+			"float cnv[9];",
+			"vec3 sample;",
+
+			/* fetch the 3x3 neighbourhood and use the RGB vector's length as intensity value */
+			"for (float i=0.0; i<3.0; i++) {",
+				"for (float j=0.0; j<3.0; j++) {",
+					"sample = texture2D(tDiffuse, vUv + texel * vec2(i-1.0,j-1.0) ).rgb;",
+					"I[int(i)][int(j)] = length(sample);",
+				"}",
+			"}",
+
+			/* calculate the convolution values for all the masks */
+			"for (int i=0; i<9; i++) {",
+				"float dp3 = dot(G[i][0], I[0]) + dot(G[i][1], I[1]) + dot(G[i][2], I[2]);",
+				"cnv[i] = dp3 * dp3;",
+			"}",
+
+			"float M = (cnv[0] + cnv[1]) + (cnv[2] + cnv[3]);",
+			"float S = (cnv[4] + cnv[5]) + (cnv[6] + cnv[7]) + (cnv[8] + M);",
+
+			"gl_FragColor = vec4(vec3(sqrt(M/S)), 1.0);",
+		"}",
 
 	].join( "\n" )
-
 };
