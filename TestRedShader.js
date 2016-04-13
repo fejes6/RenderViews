@@ -160,7 +160,7 @@ THREE.TestRedShader = {
 
 		"precision mediump float;",
 		
-		"varying vec2 position;",
+		"varying vec2 vUv;",
 		"uniform sampler2D tDiffuse;",
 		
 		"float wave(float x, float amount) {",
@@ -168,7 +168,7 @@ THREE.TestRedShader = {
 		"}",
 		
 		"void main() {",
-		  "vec4 color = texture2D(tDiffuse, position);",
+		  "vec4 color = texture2D(tDiffuse, vUv);",
 		  "gl_FragColor.r = wave(color.r, 10.);",
 		  "gl_FragColor.g = wave(color.g, 20.);",
 		  "gl_FragColor.b = wave(color.b, 40.);",
