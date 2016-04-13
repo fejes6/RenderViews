@@ -12,7 +12,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 				this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) );
 
 				var effect = new THREE.ShaderPass( THREE.TestRedShader );
-            			//effect.uniforms['position'].value.set(1.0/1366.0, 1.0/768.0);
+            			effect.uniforms[ 'amoun' ].value = 0.5;
 //test 2 ok				effect.uniforms[ 'scale' ].value = 4;
 //test 1 ok				effect.uniforms[ 'opacity' ].value = 0.2;
 				effect.renderToScreen = true;
