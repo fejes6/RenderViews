@@ -138,7 +138,7 @@ THREE.TestRedShader = {
 	uniforms: {
 
 		"tDiffuse": { type: "t", value: null },
-		"position":    { type: "v2", value: new THREE.Vector2( 512, 512 ) },
+		//"position":    { type: "v2", value: new THREE.Vector2( 512, 512 ) },
 	},
 
 	vertexShader: [
