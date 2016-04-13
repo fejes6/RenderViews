@@ -1,3 +1,5 @@
+//druhy
+//http://pixelshaders.com
 THREE.TestColorShader = {
 
 	uniforms: {
