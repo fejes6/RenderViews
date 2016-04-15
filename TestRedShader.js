@@ -1,188 +1,9 @@
 
 /**
- * @author alteredq / http://alteredqualia.com/
- *
- * Full-screen textured quad shader
- */
-/**
-THREE.TestRedShader = {
-
-	uniforms: {
-
-		"tDiffuse": { type: "t", value: null },
-		"opacity":  { type: "f", value: 1.0 }
-
-	},
-
-	vertexShader: [
-
-		"varying vec2 vUv;",
-
-		"void main() {",
-
-			"vUv = uv;",
-			"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-
-		"}"
-
-	].join("\n"),
-
-	fragmentShader: [
-
-		"uniform float opacity;",
-
-		"uniform sampler2D tDiffuse;",
-
-		"varying vec2 vUv;",
-
-		"void main() {",
-/**
-*                       "vec4 texel = texture2D( tDiffuse, vUv );",
-*			"gl_FragColor = opacity * texel;",
-*
-  ********************************************************************
-  
-  "gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);",
-  
-		"}"
-
-	].join("\n")
-
-};
-*/
-/****************************************************************************************************************************/
-/**
- * @author alteredq / http://alteredqualia.com/
- * @author davidedc / http://www.sketchpatch.net/
- *
- * NVIDIA FXAA by Timothy Lottes
- * http://timothylottes.blogspot.com/2011/06/fxaa3-source-released.html
- * - WebGL port by @supereggbert
- * http://www.glge.org/demos/fxaa/
- */
-
-/**
- * @author alteredq / http://alteredqualia.com/
- *
- * Dot screen shader
- * based on glfx.js sepia shader
- * https://github.com/evanw/glfx.js
- */
-
-/**
-THREE.TestRedShader = {
-
-	uniforms: {
-
-		"tDiffuse": { type: "t", value: null },
-		"tSize":    { type: "v2", value: new THREE.Vector2( 256, 256 ) },
-		"center":   { type: "v2", value: new THREE.Vector2( 0.5, 0.5 ) },
-		"angle":    { type: "f", value: 1.57 },
-		"scale":    { type: "f", value: 1.0 }
-
-	},
-
-	vertexShader: [
-
-		"varying vec2 vUv;",
-
-		"void main() {",
-
-			"vUv = uv;",
-			"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-
-		"}"
-
-	].join( "\n" ),
-
-	fragmentShader: [
-
-		"uniform vec2 center;",
-		"uniform float angle;",
-		"uniform float scale;",
-		"uniform vec2 tSize;",
-
-		"uniform sampler2D tDiffuse;",
-
-		"varying vec2 vUv;",
-
-		"float pattern() {",
-
-			"float s = sin( angle ), c = cos( angle );",
-
-			"vec2 tex = vUv * tSize - center;",
-			"vec2 point = vec2( c * tex.x - s * tex.y, s * tex.x + c * tex.y ) * scale;",
-
-			"return ( sin( point.x ) * sin( point.y ) ) * 4.0;",
-
-		"}",
-
-		"void main() {",
-
-			"vec4 color = texture2D( tDiffuse, vUv );",
-
-			"float average = ( color.r + color.g + color.b ) / 3.0;",
-
-			"gl_FragColor = vec4( vec3( average * 10.0 - 5.0 + pattern() ), color.a );",
-
-		"}"
-
-	].join( "\n" )
-
-};
-
-*/
-/*
-THREE.TestRedShader = {
-
-	uniforms: {
-
-		"tDiffuse": { type: "t", value: null },
-		//"position":    { type: "v2", value: new THREE.Vector2( 512, 512 ) },
-	},
-
-	vertexShader: [
-		
-		
-
-		"varying vec2 vUv;",
-
-		"void main() {",
-
-			"vUv = uv;",
-			"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-
-		"}"
-
-	].join( "\n" ),
-
-	fragmentShader: [
-
-		"precision mediump float;",
-		
-		"varying vec2 vUv;",
-		"uniform sampler2D tDiffuse;",
-		
-		"float wave(float x, float amount) {",
-		  "return (sin(x * amount) + 1.) * .5;",
-		"}",
-		
-		"void main() {",
-		  "vec4 color = texture2D(tDiffuse, vUv);",
-		  "gl_FragColor.r = wave(color.r, 10.);",
-		  "gl_FragColor.g = wave(color.g, 20.);",
-		  "gl_FragColor.b = wave(color.b, 40.);",
-		  "gl_FragColor.a = 1.;",
-		"}"
-
-	].join( "\n" )
-};
-*/
-/**
  * Super Simple Brightness Shader
  * Adjust brightness of image with an 'amount' Uniform
  * @author felixturner / http://airtight.cc/
- */
+ 
 
  THREE.TestRedShader = {
 
@@ -217,5 +38,51 @@ THREE.TestRedShader = {
 
 
 	].join("\n")
+
+};
+*/
+
+ THREE.TestRedShader = {
+ 	
+ 	uniforms: {
+	//	"tDiffuse": { type: "t", value: null },
+	//	"amount":     { type: "f", value: 0.25 }
+	},
+
+	vertexShader: [
+
+	"varying float intensity;",
+	
+	"void main()",
+	"{",
+		"vec3 lightDir = normalize(vec3(gl_LightSource[0].position));",
+		"intensity = dot(lightDir,gl_Normal);",
+	
+		"gl_Position = ftransform();",
+	"}"
+
+	].join("\n"),
+ 	
+	fragmentShader: [ 
+		
+	"varying float intensity;",
+	
+	"void main()",
+	"{",
+		"vec4 color;",
+		"if (intensity > 0.95)",
+	
+			"color = vec4(1.0,0.5,0.5,1.0);",
+		"else if (intensity > 0.5)",
+			"color = vec4(0.6,0.3,0.3,1.0);",
+		"else if (intensity > 0.25)",
+			"color = vec4(0.4,0.2,0.2,1.0);",
+		"else",
+			"color = vec4(0.2,0.1,0.1,1.0);",
+		"gl_FragColor = color;",
+	
+	"}"
+ 	
+ 		].join("\n")
 
 };
