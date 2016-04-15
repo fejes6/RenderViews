@@ -47,32 +47,30 @@
  	uniforms: {
 	//	"tDiffuse": { type: "t", value: null },
 	//	"amount":     { type: "f", value: 0.25 }
-		"lightDir": { type: "v3", value: new THREE.Vector3( 1, 1, 1 ) }
+	//	"lightDir": { type: "v3", value: new THREE.Vector3( 1, 1, 1 ) }
 	},
 
 	vertexShader: [
 
-	"varying vec3 normal;",
+	"varying float intensity;",
 	
 	"void main(){",
-		"normal = gl_Normal;",
-		"gl_Position = ftransform();",
+		"vec3 lightDir = normalize(vec3(gl_LightSource[0].position));",
+		"intensity = dot(lightDir,gl_Normal);",
 	
+		"gl_Position = ftransform();",
 	"}"
 
 	].join("\n"),
  	
 	fragmentShader: [ 
 		
-	"uniform vec3 lightDir;",
-	"varying vec3 normal;",
+	"varying float intensity;",
 	
 	"void main(){",
-		"float intensity;",
- 		"vec4 color;",
-		"intensity = dot(lightDir,normal);",
-	
+		"vec4 color;",
 		"if (intensity > 0.95)",
+	
 			"color = vec4(1.0,0.5,0.5,1.0);",
 		"else if (intensity > 0.5)",
 			"color = vec4(0.6,0.3,0.3,1.0);",
