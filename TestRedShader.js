@@ -3,7 +3,7 @@
  * Super Simple Brightness Shader
  * Adjust brightness of image with an 'amount' Uniform
  * @author felixturner / http://airtight.cc/
- 
+ */
 
  THREE.TestRedShader = {
 
@@ -40,8 +40,8 @@
 	].join("\n")
 
 };
-*/
 
+/*
  THREE.TestRedShader = {
  	
  	uniforms: {
@@ -86,3 +86,4 @@
  		].join("\n")
 
 };
+*/
