@@ -46,6 +46,7 @@
  	
  uniforms: {
 
+		"tDiffuse": { type: "t", value: null },
 		"LightPosition": { type: "v3", value: new THREE.Vector3(0, 500, 0) },
 		"SurfaceColor": { type: "v3", value: new THREE.Vector3(0, 1, 1) },
 		"WarmColor": { type: "v3", value: new THREE.Vector3(1, 0, 1) },
@@ -85,13 +86,16 @@
 		"uniform vec3  CoolColor;",
 		"uniform float DiffuseWarm;",
 		"uniform float DiffuseCool;",
+		"uniform sampler2D tDiffuse;",
 
 		"varying float NdotL;",
 		"varying vec3  ReflectVec;",
 		"varying vec3  ViewVec;",
+		"varying vec2 vUv;",
 
 		"void main(void) {",
 		
+		"vec4 color = texture2D(tDiffuse, vUv);",
 		  "vec3 kcool    = min (CoolColor + DiffuseCool * SurfaceColor, 1.0);",
 		  "vec3 kwarm    = min (WarmColor + DiffuseWarm * SurfaceColor, 1.0);",
 		  "vec3 kfinal   = mix (kcool, kwarm, NdotL);",
@@ -102,7 +106,7 @@
 		  "float spec    = max (dot (nreflect, nview), 0.0);",
 		  "spec          = pow (spec, 32.0);",
 
-		  "gl_FragColor  = vec4 (min (kfinal + spec, 1.0), 1.0);",
+		  "gl_FragColor  = vec4 (min (kfinal + spec, 1.0), color.a);",
 		"}"
 
 	].join("\n")
