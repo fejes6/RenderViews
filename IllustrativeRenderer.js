@@ -38,9 +38,6 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
    this.composer.render();
    });
    
-    var lastError = gl.getProgramInfoLog(program);
-    console.warn("Error in program linking:" + lastError);
-   
 
     return self;
 }
