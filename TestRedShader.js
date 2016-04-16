@@ -52,7 +52,7 @@
 		"DiffuseMaterial": { type: "v3", value: new THREE.Vector3(1, 0, 1) },
 		"LightPosition": { type: "v3", value: new THREE.Vector3(0, 0, 1) },
 		"AmbientMaterial": {  type: "v3", value: new THREE.Vector3(0, 1, 0) },
-		"SpecularMaterial": { type: "v3", value: new THREE.Vector3(1, 0, 0) }
+		"SpecularMaterial": { type: "v3", value: new THREE.Vector3(1, 0, 0) },
 		"Shininess": { type: "f", value: 0.45}
 	},
 
