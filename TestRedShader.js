@@ -44,45 +44,66 @@
 
  THREE.TestRedShader = {
  	
- 	uniforms: {
-	//	"tDiffuse": { type: "t", value: null },
-	//	"amount":     { type: "f", value: 0.25 }
-	//	"lightDir": { type: "v3", value: new THREE.Vector3( 1, 1, 1 ) }
+ uniforms: {
+
+		"LightPosition": { type: "v3", value: new THREE.Vector3(0, 500, 0) },
+		"SurfaceColor": { type: "v3", value: null},
+		"WarmColor": { type: "v3", value: null},
+		"CoolColor": { type: "v3", value: null},
+		"DiffuseWarm": { type: "f", value: 0.45},
+		"DiffuseCool": { type: "f", value: 0.45}
 	},
 
 	vertexShader: [
 
-	"varying float intensity;",
-	
-	"void main(){",
-		"vec3 lightDir = normalize(vec3(gl_LightSource[0].position));",
-		"intensity = dot(lightDir,gl_Normal);",
-	
-		"gl_Position = ftransform();",
-	"}"
+		"uniform vec3 LightPosition;",
+		
+		"varying float NdotL;",
+		"varying vec3 ReflectVec;",
+		"varying vec3 ViewVec;",
+		
+		"void main() {",
+
+			"vec3 EyePos = (modelViewMatrix * vec4(position, 1.0)).xyz;",
+			"vec3 trans_norm = normalize(normalMatrix * normal);",
+			"vec3 lightVec 	= normalize(LightPosition - EyePos);",
+			"ReflectVec    	= normalize(reflect(-lightVec, trans_norm));",
+			"ViewVec       	= normalize(-EyePos);",
+			"NdotL         	= (dot (lightVec, trans_norm) + 1.0) * 0.5;",
+			"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+
+		"}"
 
 	].join("\n"),
- 	
-	fragmentShader: [ 
+
+	fragmentShader: [
+
+		"uniform vec3  SurfaceColor;",
+		"uniform vec3  WarmColor;",
+		"uniform vec3  CoolColor;",
+		"uniform float DiffuseWarm;",
+		"uniform float DiffuseCool;",
+
+		"varying float NdotL;",
+		"varying vec3  ReflectVec;",
+		"varying vec3  ViewVec;",
+
+		"void main(void) {",
 		
-	"varying float intensity;",
-	
-	"void main(){",
-		"vec4 color;",
-		"if (intensity > 0.95)",
-	
-			"color = vec4(1.0,0.5,0.5,1.0);",
-		"else if (intensity > 0.5)",
-			"color = vec4(0.6,0.3,0.3,1.0);",
-		"else if (intensity > 0.25)",
-			"color = vec4(0.4,0.2,0.2,1.0);",
-		"else",
-			"color = vec4(0.2,0.1,0.1,1.0);",
-		"gl_FragColor = color;",
-	
-	"}"
- 	
- 		].join("\n")
+		  "vec3 kcool    = min (CoolColor + DiffuseCool * SurfaceColor, 1.0);",
+		  "vec3 kwarm    = min (WarmColor + DiffuseWarm * SurfaceColor, 1.0);",
+		  "vec3 kfinal   = mix (kcool, kwarm, NdotL);",
+
+		  "vec3 nreflect = normalize (ReflectVec);",
+		  "vec3 nview    = normalize (ViewVec);",
+
+		  "float spec    = max (dot (nreflect, nview), 0.0);",
+		  "spec          = pow (spec, 32.0);",
+
+		  "gl_FragColor  = vec4 (min (kfinal + spec, 1.0), 1.0);",
+		"}"
+
+	].join("\n")
 
 };
 
