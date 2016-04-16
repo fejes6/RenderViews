@@ -32,6 +32,9 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 
    //este bude fajn sem neskor dorobit offscreen rrender, aby fungoval picking
    //ale zatial staci takto
+   
+   var lastError = gl.getProgramInfoLog(program);
+    console.warn("Error in program linking:" + lastError);
 
    this.composer.render();
    });
