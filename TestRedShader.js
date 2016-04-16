@@ -61,6 +61,7 @@
 		"varying float NdotL;",
 		"varying vec3 ReflectVec;",
 		"varying vec3 ViewVec;",
+		"varying vec2 vUv;",
 		
 		"void main() {",
 
@@ -70,6 +71,7 @@
 			"ReflectVec    	= normalize(reflect(-lightVec, trans_norm));",
 			"ViewVec       	= normalize(-EyePos);",
 			"NdotL         	= (dot (lightVec, trans_norm) + 1.0) * 0.5;",
+			"vUv = uv;",
 			"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 
 		"}"
