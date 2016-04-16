@@ -46,7 +46,7 @@
  	
  uniforms: {
 
-		"LightPosition": { type: "v3", value: new THREE.Vector3(0, 500, 0) },
+		"LightPosition": { type: "v3", value: new THREE.Vector3(0, 0, 500, 0) },
 		"SurfaceColor": { type: "v3", value: null},
 		"WarmColor": { type: "v3", value: null},
 		"CoolColor": { type: "v3", value: null},
