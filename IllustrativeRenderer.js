@@ -4,6 +4,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
     var self = BasicThreeRenderer(domQuery);
    
     self.composer = null;
+    
    
    
    				// postprocessing
@@ -16,6 +17,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 //test 2 ok				effect.uniforms[ 'scale' ].value = 4;
 //test 1 ok				effect.uniforms[ 'opacity' ].value = 0.2;
 				effect.renderToScreen = true;
+				effect.extensions.derivatives = true;
 				this.composer.addPass( effect );
    });
 				//
