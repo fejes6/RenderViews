@@ -14,10 +14,6 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 
 				var effect = new THREE.ShaderPass( THREE.TestRedShader );
 				effect.material = new THREE.ShaderMaterial( {
-					defines: shader.defines || {},
-					uniforms: this.uniforms,
-					vertexShader: shader.vertexShader,
-					fragmentShader: shader.fragmentShader,
 					extensions: derivatives = true
 				} );
             			//effect.uniforms[ 'amount' ].value = 0.75;
