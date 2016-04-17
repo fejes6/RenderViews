@@ -13,7 +13,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 				this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) );
 
 				var effect = new THREE.ShaderPass( THREE.TestRedShader );
-				effect.material = new THREE.ShaderMaterial( 
+				effect.material = new THREE.ShaderMaterial( {
 					defines: shader.defines || {},
 					uniforms: this.uniforms,
 					vertexShader: shader.vertexShader,
