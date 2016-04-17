@@ -24,6 +24,7 @@
 	].join("\n"),
 
 	fragmentShader: [
+	"#extension GL_OES_standard_derivatives : enable",
 
 	"uniform sampler2D tDiffuse;",
 	"uniform float amount;",
