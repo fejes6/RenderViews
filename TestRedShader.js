@@ -79,6 +79,7 @@
 	].join("\n"),
 
 	fragmentShader: [
+	"#extension GL_OES_standard_derivatives : enable",
 
 	"varying vec3 EyespaceNormal;",
 	"varying vec3 Diffuse;",
