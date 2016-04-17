@@ -18,7 +18,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 					uniforms: this.uniforms,
 					vertexShader: shader.vertexShader,
 					fragmentShader: shader.fragmentShader,
-					extensions.derivatives: true
+					extensions: derivatives = true
 				} );
             			//effect.uniforms[ 'amount' ].value = 0.75;
 //test 2 ok				effect.uniforms[ 'scale' ].value = 4;
