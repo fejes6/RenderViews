@@ -36,7 +36,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
    //ale zatial staci takto
    
   
-   this.renderer.context.getExtension('OES_standard_derivatives');
+   //this.renderer.context.getExtension('OES_standard_derivatives');
    this.composer.render();
    });
 	
