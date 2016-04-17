@@ -13,6 +13,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 				this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) );
 
 				var effect = new THREE.ShaderPass( THREE.TestRedShader );
+				this.basicMaterial.extensions.derivatives = true;
             			//effect.uniforms[ 'amount' ].value = 0.75;
 //test 2 ok				effect.uniforms[ 'scale' ].value = 4;
 //test 1 ok				effect.uniforms[ 'opacity' ].value = 0.2;
@@ -38,7 +39,8 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 
    this.composer.render();
    });
-
+	
+	
 
     return self;
 }
