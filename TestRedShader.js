@@ -3,7 +3,7 @@
  * Super Simple Brightness Shader
  * Adjust brightness of image with an 'amount' Uniform
  * @author felixturner / http://airtight.cc/
- 
+ */
 
  THREE.TestRedShader = {
 
@@ -24,6 +24,7 @@
 	].join("\n"),
 
 	fragmentShader: [
+	"#extension GL_OES_standard_derivatives : enable",
 
 	"uniform sampler2D tDiffuse;",
 	"uniform float amount;",
@@ -40,7 +41,7 @@
 	].join("\n")
 
 };
-*/
+/*
 
  THREE.TestRedShader = {
  	
@@ -138,3 +139,4 @@
 
 };
 
+*/
