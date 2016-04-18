@@ -18,10 +18,12 @@ THREE.ShaderPassExt = function( shader, textureID ) {
 			defines: shader.defines || {},
 			uniforms: this.uniforms,
 			vertexShader: shader.vertexShader,
-			fragmentShader: shader.fragmentShader,
-			extensions.derivatives = true
-
+			fragmentShader: shader.fragmentShader
 		} );
+		
+		var material = this.material;
+		material.extensions.derivatives = true;
+
 
 	}
 
