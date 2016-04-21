@@ -120,7 +120,7 @@ THREE.SepiaShader = {
 		"{",
 			"float intensity;",
 			"vec4 color= texture2D( tDiffuse, vUv );",
-			"intensity = dot(lightDir,normal);",
+			//"intensity = dot(lightDir,normal);",
 			"intensity = dot(lightDir,vUv);",
 		
 			"if (intensity > 0.95)",
