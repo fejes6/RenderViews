@@ -96,7 +96,9 @@ THREE.SepiaShader = {
  THREE.TestRedShader = {
  	
  	uniforms: {
- 	"lightDir":	{ type: "v3", value: new THREE.Vector3() }
+ 		"tDiffuse": { type: "t", value: null },
+ 		"lightDir":	{ type: "v3", value: new THREE.Vector3() }
+ 	
  	},
 
 	vertexShader: [
@@ -116,7 +118,7 @@ THREE.SepiaShader = {
 		"void main()",
 		"{",
 			"float intensity;",
-			"vec4 color;",
+			"vec4 color= texture2D( tDiffuse, vUv );",
 			"intensity = dot(lightDir,normal);",
 		
 			"if (intensity > 0.95)",
