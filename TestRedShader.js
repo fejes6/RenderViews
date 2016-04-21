@@ -97,7 +97,7 @@ THREE.SepiaShader = {
  	
  	uniforms: {
  		"tDiffuse": { type: "t", value: null },
- 		//"lightDir":	{ type: "v3", value: new THREE.Vector3() }
+ 		"lightDir":	{ type: "v3", value: new THREE.Vector3() }
  	
  	},
 
@@ -106,14 +106,14 @@ THREE.SepiaShader = {
 	"varying vec3 normal;",
 	"void main() {",
 		"vUv = uv;",
-		"normal = gl_NormalMatrix * gl_Normal;",
-		//"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-		"gl_Position = ftransform();",
+		
+		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+		
 	"}"
 	].join("\n"),
 
 	fragmentShader: [
-		//"uniform vec3 lightDir;",
+		"uniform vec3 lightDir;",
 		"uniform sampler2D tDiffuse;",
 		"varying vec3 normal;",
 		"varying vec2 vUv;",
@@ -122,8 +122,8 @@ THREE.SepiaShader = {
 		"{",
 			"float intensity;",
 			"vec4 color= texture2D( tDiffuse, vUv );",
-			"vec3 n = normalize(normal);",
-			"intensity = dot(vec3(gl_LightSource[0].position),n);",
+			
+			"intensity = dot(lightDir,normal);",
 		
 			"if (intensity > 0.95)",
 				"color = vec4(1.0,0.5,0.5,1.0);",
