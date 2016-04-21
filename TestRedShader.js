@@ -115,6 +115,7 @@ THREE.SepiaShader = {
 		"uniform vec3 lightDir;",
 		"uniform sampler2D tDiffuse;",
 		"varying vec3 normal;",
+		"varying vec2 vUv;",
 		
 		"void main()",
 		"{",
