@@ -113,6 +113,7 @@ THREE.SepiaShader = {
 
 	fragmentShader: [
 		"uniform vec3 lightDir;",
+		"uniform sampler2D tDiffuse;",
 		"varying vec3 normal;",
 		
 		"void main()",
