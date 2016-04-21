@@ -153,8 +153,9 @@ THREE.TestRedShader = {
 
 					"uDirLightPos":	{ type: "v3", value: new THREE.Vector3() },
 					"uDirLightColor": { type: "c", value: new THREE.Color( 0xffffff ) },
+					"tDiffuse": { type: "t", value: null },
 
-					"uMaterialColor":  { type: "c", value: new THREE.Color( 0xffffff ) },
+					//"uMaterialColor":  { type: "c", value: new THREE.Color( 0xffffff ) },
 
 					uKd: {
 						type: "f",
@@ -167,11 +168,13 @@ THREE.TestRedShader = {
 				},
 
 				vertexShader: [
-
+					
+					"varying vec2 vUv;",
 					"varying vec3 vNormal;",
 					"varying vec3 vViewPosition;",
 
 					"void main() {",
+					"vUv = uv;",
 
 						"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 						"vNormal = normalize( normalMatrix * normal );",
@@ -183,8 +186,10 @@ THREE.TestRedShader = {
 				].join("\n"),
 
 				fragmentShader: [
+					"uniform sampler2D tDiffuse;",
 
-					"uniform vec3 uMaterialColor;",
+
+					//"uniform vec3 uMaterialColor;",
 
 					"uniform vec3 uDirLightPos;",
 					"uniform vec3 uDirLightColor;",
@@ -194,8 +199,10 @@ THREE.TestRedShader = {
 
 					"varying vec3 vNormal;",
 					"varying vec3 vViewPosition;",
+					"varying vec2 vUv;",
 
 					"void main() {",
+					"vec4 uMaterialColor = texture2D(tDiffuse, vUv);",
 
 						// compute direction to light
 						"vec4 lDirection = viewMatrix * vec4( uDirLightPos, 0.0 );",
