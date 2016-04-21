@@ -107,7 +107,8 @@ THREE.SepiaShader = {
 	"void main() {",
 		"vUv = uv;",
 		"normal = gl_NormalMatrix * gl_Normal;",
-		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+		//"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+		"gl_Position = ftransform();",
 	"}"
 	].join("\n"),
 
