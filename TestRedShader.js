@@ -4,7 +4,7 @@
  * Adjust brightness of image with an 'amount' Uniform
  * @author felixturner / http://airtight.cc/
  */
-
+/*
  THREE.TestRedShader = {
 
 	uniforms: {
@@ -41,7 +41,7 @@
 	].join("\n")
 
 };
-/*
+*/
 
  THREE.TestRedShader = {
  	
@@ -139,4 +139,4 @@
 
 };
 
-*/
+
