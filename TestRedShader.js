@@ -155,7 +155,7 @@ THREE.TestRedShader = {
 
 					"tDiffuse": { type: "t", value: null },
 					"uDirLightPos":	{ type: "v3", value: new THREE.Vector3() },
-					"uDirLightColor": { type: "c", value: new THREE.Color( 0xffffff ) },
+					"uDirLightColor": { type: "c", value: new THREE.Color( 0xff1fff ) },
 
 					//"uMaterialColor":  { type: "c", value: new THREE.Color( 0xffffff ) },
 
