@@ -281,7 +281,7 @@ THREE.TestRedShader = {
 THREE.TestRedShader = {
     uniforms: {
 	"lightpos": {type: 'v3', value: new THREE.Vector3(0,30,20) },
-
+	"tDiffuse": { type: "t", value: null },
 
     },
 
@@ -290,23 +290,30 @@ THREE.TestRedShader = {
         "varying vec3 lightdir;",
 	 "varying vec3 eyenorm;",
 	 "uniform vec3 lightpos;",
+	 "varying vec2 vUv;",
+
+		
 	 "void main() {",
-	 "gl_Position = projectionMatrix* modelViewMatrix * vec4( position, 1.0);",
+	 
 	 
 	 "vec4 tmp = modelViewMatrix * vec4 (lightpos, 1.0);",
 	 "lightdir = tmp.xyz;",
-	 
+	 "vUv = uv;",
 	 "eyenorm = normalMatrix * normal;",
+	 "gl_Position = projectionMatrix* modelViewMatrix * vec4( position, 1.0);",
 	 "}"
 
     ].join("\n"),
 
     fragmentShader: [
+	"uniform sampler2D tDiffuse;",
 
-      "varying vec3 lightdir;",
+	"varying vec2 vUv;",
+        "varying vec3 lightdir;",
 	 "varying vec3 eyenorm;",
 	 
 	 "void main() {",
+	 "vec4 color;",
 	        //vec3 lightdir = vec3 (1,1,2);
 	 "float ndotl = dot (normalize (eyenorm), normalize (lightdir));",
 	 "if (ndotl > 0.8) {",
@@ -316,7 +323,8 @@ THREE.TestRedShader = {
 	 "} else {",
 	 "ndotl = 0.2;",
 	 "}",
-	 "gl_FragColor = vec4 (ndotl, ndotl, ndotl, 1.0);",
+	 "color = vec4 (ndotl, ndotl, ndotl, 1.0);",
+	 "gl_FragColor = color * texture2D(tDiffuse, vUv);",
 	 "}"
 
     ].join("\n")
