@@ -16,7 +16,7 @@ THREE.TestDotShader = {
 		"uniform sampler2D tDiffuse;",
 
 		"void main() {",
-			"gl_FragColor = texture2D( tSource, vUv );",
+			"gl_FragColor = texture2D( tDiffuse, vUv );",
 		"}"
 	].join( "\n" )
 };
