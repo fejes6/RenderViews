@@ -290,7 +290,7 @@ THREE.TestRedShader = {
 
     },
 
-    vertex_shader: [
+    vertexShader: [
 
       "varying vec3 vNormal;",
       "varying vec3 vRefract;",
@@ -312,7 +312,7 @@ THREE.TestRedShader = {
 
     ].join("\n"),
 
-    fragment_shader: [
+    fragmentShader: [
 
       "uniform vec3 uBaseColor;",
 
