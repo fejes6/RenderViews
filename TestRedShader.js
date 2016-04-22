@@ -215,7 +215,7 @@ THREE.TestRedShader = {
 						"float diffuse = max( dot( normal, lVector ), 0.0);",
 						"vec4 uMaterialColor = texture2D(tDiffuse, vUv);",
 
-						"gl_FragColor = vec4( uKd * uMaterialColor * uDirLightColor * diffuse, 1.0 );",
+						"gl_FragColor = vec4( uKd * uMaterialColor.rgb * uDirLightColor * diffuse, 1.0 );",
 
 					"}"
 
