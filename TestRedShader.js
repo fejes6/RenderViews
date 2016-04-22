@@ -153,10 +153,11 @@ THREE.TestRedShader = {
 		
 				uniforms: {
 
+					"tDiffuse": { type: "t", value: null },
 					"uDirLightPos":	{ type: "v3", value: new THREE.Vector3() },
 					"uDirLightColor": { type: "c", value: new THREE.Color( 0xffffff ) },
 
-					"uMaterialColor":  { type: "c", value: new THREE.Color( 0xffffff ) },
+					//"uMaterialColor":  { type: "c", value: new THREE.Color( 0xffffff ) },
 
 					uKd: {
 						type: "f",
@@ -172,9 +173,11 @@ THREE.TestRedShader = {
 
 					"varying vec3 vNormal;",
 					"varying vec3 vViewPosition;",
+					"varying vec2 vUv;",
 
 					"void main() {",
-
+	
+						"vUv = uv;",
 						"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 						"vNormal = normalize( normalMatrix * normal );",
 						"vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );",
@@ -186,6 +189,8 @@ THREE.TestRedShader = {
 
 				fragmentShader: [
 
+					"uniform sampler2D tDiffuse;",
+					
 					"uniform vec3 uMaterialColor;",
 
 					"uniform vec3 uDirLightPos;",
@@ -196,6 +201,7 @@ THREE.TestRedShader = {
 
 					"varying vec3 vNormal;",
 					"varying vec3 vViewPosition;",
+					"varying vec2 vUv;",
 
 					"void main() {",
 
@@ -207,6 +213,7 @@ THREE.TestRedShader = {
 						"vec3 normal = normalize( vNormal );",
 						// Student: test diffuse vs. uBorder and adjust accordingly
 						"float diffuse = max( dot( normal, lVector ), 0.0);",
+						"vec4 uMaterialColor = texture2D(tDiffuse, vUv);",
 
 						"gl_FragColor = vec4( uKd * uMaterialColor * uDirLightColor * diffuse, 1.0 );",
 
