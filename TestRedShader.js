@@ -1,8 +1,8 @@
 THREE.TestRedShader = {
 	uniforms: {
 		"tDiffuse": { type: "t", value: null },
-		"tDepth": { type: "t", value: rtScene },
-		"tBlurDepth": { type: "t", value: rtDepth },
+		"tDepth": { type: "t", value: null },
+		"tBlurDepth": { type: "t", value: null },
 		"delta": {type: "v2", value: new THREE.Vector2(1.0 / window.innerWidth, 1.0 / window.innerHeight)},
 		"intensity": {type: "f", value:0.7},
 	},
