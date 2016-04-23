@@ -179,29 +179,27 @@ THREE.TestRedShader = {
                 uniforms: {
 
                     //"tDiffuse": { type: "t", value: null },
-                    		"uDirLightPos":	{ type: "v3", value: new THREE.Vector3() },
-                    		"uDirLightColor": { type: "c", value: new THREE.Color( 0xeeeeee ) },
-                    
-                    		"uAmbientLightColor": { type: "c", value: new THREE.Color( 0x050505 ) },
-                    
-                    		"uBaseColor":  { type: "c", value: new THREE.Color( 0xeeeeee ) },
-                    		"uLineColor1": { type: "c", value: new THREE.Color( 0x808080 ) },
-                    		"uLineColor2": { type: "c", value: new THREE.Color( 0x000000 ) },
-                    		"uLineColor3": { type: "c", value: new THREE.Color( 0x000000 ) },
-                    		"uLineColor4": { type: "c", value: new THREE.Color( 0x000000 ) }
+                      "lightpos": {type: "v3", value: new THREE.Vector3(0,30,20) },
                 },
 
                 vertexShader: [
 
-              		"varying vec3 vNormal;",
+
               		//"varying vec2 vUv;",
               
-              		"void main() {",
+
               //"vUv = uv;",
-              			"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-              			"vNormal = normalize( normalMatrix * normal );",
-              
-              		"}"
+                  "varying vec3 lightdir;",
+                  "varying vec3 eyenorm;",
+                  "uniform vec3 lightpos;",
+                  "void main() {",
+                  "gl_Position = projectionMatrix* modelViewMatrix * vec4( position, 1.0);",
+                  
+                  "vec4 tmp = modelViewMatrix * vec4 (lightpos, 1.0);",
+                  "lightdir = tmp.xyz;",
+                  
+                  "eyenorm = normalMatrix * normal;",
+                  "}"
 
                 ].join("\n"),
 
@@ -209,42 +207,25 @@ THREE.TestRedShader = {
                  
                  //"uniform sampler2D tDiffuse;",
 
-                 		"uniform vec3 uBaseColor;",
-                 		"uniform vec3 uLineColor1;",
-                 		"uniform vec3 uLineColor2;",
-                 		"uniform vec3 uLineColor3;",
-                 		"uniform vec3 uLineColor4;",
-                 
-                 		"uniform vec3 uDirLightPos;",
-                 		"uniform vec3 uDirLightColor;",
-                 
-                 		"uniform vec3 uAmbientLightColor;",
-                 
-                 		"varying vec3 vNormal;",
                  		//"varying vec2 vUv;",
                  
-                 		"void main() {",
-                 
-                 			"float camera = max( dot( normalize( vNormal ), vec3( 0.0, 0.0, 1.0 ) ), 0.4);",
-                 			"float light = max( dot( normalize( vNormal ), uDirLightPos ), 0.0);",
-                 			
                  			//"vec4 uBaseColor = texture2D(tDiffuse, vUv);",
                  
-                 			"gl_FragColor = vec4( uBaseColor, 1.0 );",
-                 
-                 			"if ( length(uAmbientLightColor + uDirLightColor * light) < 1.00 ) {",
-                 
-                 				"gl_FragColor *= vec4( uLineColor1, 1.0 );",
-                 
-                 			"}",
-                 
-                 			"if ( length(uAmbientLightColor + uDirLightColor * camera) < 0.50 ) {",
-                 
-                 				"gl_FragColor *= vec4( uLineColor2, 1.0 );",
-                 
-                 			"}",
-                 
-                 		"}"
+                    "varying vec3 lightdir;",
+                    "varying vec3 eyenorm;",
+                    
+                    "void main() {",
+                           //vec3 lightdir = vec3 (1,1,2);
+                    "float ndotl = dot (normalize (eyenorm), normalize (lightdir));",
+                    "if (ndotl > 0.8) {",
+                    "ndotl = 1.0;",
+                    "} else if (ndotl > 0.6) {",
+                    "ndotl = 0.6;",
+                    "} else {",
+                    "ndotl = 0.2;",
+                    "}",
+                    "gl_FragColor = vec4 (ndotl, ndotl, ndotl, 1.0);",
+                    "}"
 
                 ].join("\n")
 
