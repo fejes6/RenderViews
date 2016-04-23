@@ -209,7 +209,7 @@ THREE.TestRedShader = {
                  
                  //"uniform sampler2D tDiffuse;",
 
-                 		//"uniform vec3 uBaseColor;",
+                 		"uniform vec3 uBaseColor;",
                  		"uniform vec3 uLineColor1;",
                  		"uniform vec3 uLineColor2;",
                  		"uniform vec3 uLineColor3;",
