@@ -252,8 +252,8 @@ uniforms: {
 	},
 
 	vertexShader: [
-		uniform vec3 viewVector;
-		uniform float c;
+		"uniform vec3 viewVector;",
+		"uniform float c;",
 
 		
 
