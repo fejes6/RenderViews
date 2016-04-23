@@ -4,7 +4,7 @@
  * Adjust brightness of image with an 'amount' Uniform
  * @author felixturner / http://airtight.cc/
  */
-/*
+
  THREE.TestRedShader = {
 
     uniforms: {
@@ -33,7 +33,7 @@
     "void main() {",
 
         "vec4 color = texture2D(tDiffuse, vUv);",
-        "gl_FragColor = color*amount;",
+        "gl_FragColor = vec4(color.r*amount, color.g*amount, color.b*amount, color.a/2);",
 
     "}"
 
@@ -41,7 +41,7 @@
     ].join("\n")
 
 };
-*/
+
 
 
 /*
@@ -238,6 +238,8 @@ THREE.TestRedShader = {
 
             };
 */
+/*
+//x ray shader - nefunkcny, vsetko je modre
 THREE.TestRedShader = {
 
 uniforms: {
@@ -288,5 +290,6 @@ uniforms: {
 	            "gl_FragColor = vec4( glow.x*color.r, glow.y*color.g, glow.z*color.b, 1.0*color.a );",
 	        "}"
 	].join("\n")
-
 };
+*/
+
