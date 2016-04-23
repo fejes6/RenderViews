@@ -44,8 +44,8 @@
 */
 
 
-/*
-THREE.SepiaShader = {
+
+THREE.TestRedShader = {
 
     uniforms: {
 
@@ -91,61 +91,7 @@ THREE.SepiaShader = {
     ].join("\n")
 
 };
-*/
 
-// nepozna gl_premenne neviem preco
- THREE.TestRedShader = {
-     
-     uniforms: {
-         "texture": { type: "t", value: null },
-         //"lightDir":    { type: "v3", value: new THREE.Vector3() }
-     
-     },
-
-    vertexShader: [
-        "varying vec3 normal, lightDir;",
-        "varying vec2 texCoord;",
-        
-        "void main(){",
-            "vec4 ecPos;",
-            "ecPos = vec4(gl_ModelViewMatrix * gl_Vertex);",
-            "lightDir = normalize(vec3(gl_LightSource[0].position) - ecPos.xyz);",
-            "normal = normalize(gl_NormalMatrix * gl_Normal);",
-            
-            "texCoord = vec2(gl_MultiTexCoord0);",
-            "gl_Position = ftransform();",
-        "}"
-    ].join("\n"),
-
-    fragmentShader: [
-        "varying vec3 normal, lightDir;",
-        "varying vec2 texCoord;",
-        "uniform sampler2D texture;",
-        
-        "void main(){",
-            "float intensity;",
-            "vec3 n;",
-            "vec4 _color;",
-            
-            "n = normalize(normal);",
-            "intensity = dot(lightDir, n);",
-            
-            "if (intensity > 0.98)",
-            "_color = vec4(1.0,1.0,1.0,1.0);",
-            "else if (intensity > 0.5)",
-            "_color = vec4(0.8,0.8,0.8,1.0);",
-            "else if (intensity > 0.35)",
-            "_color = vec4(0.4,0.4,0.4,1.0);",
-            "else",
-            "_color = vec4(0.0,0.0,0.0,1.0);",
-            "gl_FragColor = _color * texture2D(texture, texCoord);",
-        "}"
-        
-        
-        
-    ].join("\n")
-
-};
 /*
 // normalize by malo ist
 // toon shader bez erroru ale iba cierna obrazovka
