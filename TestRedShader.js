@@ -225,7 +225,7 @@ THREE.TestRedShader = {
 
             };
 */
-/*
+
 //upraveny kod zo stranky - - nepozna premenne
 THREE.TestRedShader = {
     
@@ -276,59 +276,6 @@ THREE.TestRedShader = {
             ].join("\n")
 
 };
-*/
 
-THREE.TestRedShader = {
-    uniforms: {
-    "lightpos": {type: 'v3', value: new THREE.Vector3(0,30,20) },
-    "tDiffuse": { type: "t", value: null },
-
-    },
-
-    vertexShader: [
-
-        "varying vec3 lightdir;",
-     "varying vec3 eyenorm;",
-     "uniform vec3 lightpos;",
-     "varying vec2 vUv;",
-
-        
-     "void main() {",
-    
-    
-     "vec4 tmp = modelViewMatrix * vec4 (lightpos, 1.0);",
-     "lightdir = tmp.xyz;",
-     "vUv = uv;",
-     "eyenorm = normalMatrix * normal;",
-     "gl_Position = projectionMatrix* modelViewMatrix * vec4( position, 1.0);",
-     "}"
-
-    ].join("\n"),
-
-    fragmentShader: [
-    "uniform sampler2D tDiffuse;",
-
-    "varying vec2 vUv;",
-        "varying vec3 lightdir;",
-     "varying vec3 eyenorm;",
-    
-     "void main() {",
-     "vec4 color;",
-            //vec3 lightdir = vec3 (1,1,2);
-     "float ndotl = dot (normalize (eyenorm), normalize (lightdir));",
-     "if (ndotl > 0.8) {",
-     "ndotl = 1.0;",
-     "} else if (ndotl > 0.6) {",
-     "ndotl = 0.6;",
-     "} else {",
-     "ndotl = 0.2;",
-     "}",
-     "color = vec4 (ndotl, ndotl, ndotl, 1.0);",
-     //* texture2D(tDiffuse, vUv)
-     "gl_FragColor = color;",
-     "}"
-
-    ].join("\n")
-   };
 
 
