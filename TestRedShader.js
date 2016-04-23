@@ -178,21 +178,22 @@ THREE.TestRedShader = {
         
                 uniforms: {
 
-                    //"tDiffuse": { type: "t", value: null },
+                      "tDiffuse": { type: "t", value: null },
                       "lightpos": {type: "v3", value: new THREE.Vector3(0,30,20) },
                 },
 
                 vertexShader: [
 
 
-              		//"varying vec2 vUv;",
+              		"varying vec2 vUv;",
               
 
-              //"vUv = uv;",
+              
                   "varying vec3 lightdir;",
                   "varying vec3 eyenorm;",
                   "uniform vec3 lightpos;",
                   "void main() {",
+                  "vUv = uv;",
                   "gl_Position = projectionMatrix* modelViewMatrix * vec4( position, 1.0);",
                   
                   "vec4 tmp = modelViewMatrix * vec4 (lightpos, 1.0);",
@@ -205,16 +206,17 @@ THREE.TestRedShader = {
 
                 fragmentShader: [
                  
-                 //"uniform sampler2D tDiffuse;",
+                 "uniform sampler2D tDiffuse;",
 
-                 		//"varying vec2 vUv;",
+                 "varying vec2 vUv;",
                  
-                 			//"vec4 uBaseColor = texture2D(tDiffuse, vUv);",
+                 			
                  
                     "varying vec3 lightdir;",
                     "varying vec3 eyenorm;",
                     
                     "void main() {",
+                    "vec4 color = texture2D(tDiffuse, vUv);",
                            //vec3 lightdir = vec3 (1,1,2);
                     "float ndotl = dot (normalize (eyenorm), normalize (lightdir));",
                     "if (ndotl > 0.8) {",
@@ -224,7 +226,8 @@ THREE.TestRedShader = {
                     "} else {",
                     "ndotl = 0.2;",
                     "}",
-                    "gl_FragColor = vec4 (ndotl, ndotl, ndotl, 1.0);",
+                    "gl_FragColor = vec4 (ndotl, ndotl, ndotl, 1.0) * color;",
+                    //"gl_FragColor = vec4 (ndotl, ndotl, ndotl, 1.0);",
                     "}"
 
                 ].join("\n")
