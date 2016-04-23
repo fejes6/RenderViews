@@ -92,7 +92,7 @@ THREE.SepiaShader = {
 
 };
 */
-/*
+
 // nepozna gl_premenne neviem preco
  THREE.TestRedShader = {
      
@@ -146,7 +146,8 @@ THREE.SepiaShader = {
     ].join("\n")
 
 };
-*/
+/*
+// normalize by malo ist
 // toon shader bez erroru ale iba cierna obrazovka
 THREE.TestRedShader = {
     
@@ -155,9 +156,9 @@ THREE.TestRedShader = {
 
                     "tDiffuse": { type: "t", value: null },
                     "uDirLightPos":    { type: "v3", value: new THREE.Vector3() },
-                    "uDirLightColor": { type: "c", value: new THREE.Color( 0xff1fff ) },
+                    //"uDirLightColor": { type: "c", value: new THREE.Color( 0xff1fff ) },
 
-                    //"uMaterialColor":  { type: "c", value: new THREE.Color( 0xffffff ) },
+                    "uMaterialColor":  { type: "c", value: new THREE.Color( 0xffffff ) },
 
                     uKd: {
                         type: "f",
@@ -225,6 +226,6 @@ THREE.TestRedShader = {
 
             };
 
-
+*/
 
 
