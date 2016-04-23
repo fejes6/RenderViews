@@ -248,7 +248,7 @@ uniforms: {
 		"c": { type: "f", value: 1.0 },
 	"p": { type: "f", value: 3 },
 	"glowColor": { type: "c", value: new THREE.Color(0x84ccff) },
-	"viewVector": { type: "v3", value: materialCameraPosition }
+	"viewVector": { type: "v3", value: new THREE.Vector3(20,30,0.76) }
 	},
 
 	vertexShader: [
