@@ -35,6 +35,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
     //okopirovane z BasicThreeRenderera, vycisti viewport
         if (!this.doesWebGL)
             this.renderer.domElement.getContext("2d").clearRect(0, 0,self.container.innerWidth() - 1, self.container.innerHeight() - 1);
+        this.renderer.alpha = true;
         else
             //this.renderer.alpha = true;
             this.renderer.clear();
