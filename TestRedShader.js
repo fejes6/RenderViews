@@ -16,7 +16,7 @@ THREE.TestRedShader = {
 		"uniform vec2 delta;",
 
 		//yeah, could have done it seperated...
-		"void main() {
+		"void main() {",
 			"gl_FragColor =	texture2D( tDiffuse, vUv);",
 			"gl_FragColor.rgb = gl_FragColor.rgb * 0.25 +",
 				"texture2D( tDiffuse, vUv  + delta).rgb * 0.0625 +",
