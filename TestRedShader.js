@@ -324,7 +324,8 @@ THREE.TestRedShader = {
      "ndotl = 0.2;",
      "}",
      "color = vec4 (ndotl, ndotl, ndotl, 1.0);",
-     "gl_FragColor = color * texture2D(tDiffuse, vUv);",
+     //* texture2D(tDiffuse, vUv)
+     "gl_FragColor = color;",
      "}"
 
     ].join("\n")
