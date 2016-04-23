@@ -226,7 +226,8 @@ THREE.TestRedShader = {
                     "} else {",
                     "ndotl = 0.2;",
                     "}",
-                    "gl_FragColor = vec4 (ndotl, ndotl, ndotl, 1.0) * color;",
+                    "gl_FragColor = vec4 (ndotl*color.r, ndotl*color.g, ndotl*color.b, 1.0*color.a);",
+                    //"gl_FragColor = vec4 (ndotl, ndotl, ndotl, 1.0) * color;",
                     //"gl_FragColor = vec4 (ndotl, ndotl, ndotl, 1.0);",
                     "}"
 
