@@ -33,7 +33,7 @@
     "void main() {",
 
         "vec4 color = texture2D(tDiffuse, vUv);",
-        "gl_FragColor = vec4(color.r*amount, color.g*amount, color.b*amount, color.a*0.5);",
+        "gl_FragColor = vec4(color.r*amount, color.g*amount, color.b*amount, 0.5);",
 
     "}"
 
