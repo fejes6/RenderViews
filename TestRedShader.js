@@ -243,7 +243,7 @@ THREE.TestRedShader = {
 uniforms: {
 
 		"tDiffuse": { type: "t", value: null },
-		"glowColor": { type: "c", value: new THREE.Color(0x84ccff) },
+		//"glowColor": { type: "c", value: new THREE.Color(0x84ccff) },
 		//"p": { type: "f", value: 2 },
 		"c": { type: "f", value: 1.0 },
 	"p": { type: "f", value: 3 },
