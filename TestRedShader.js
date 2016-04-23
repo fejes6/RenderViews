@@ -244,23 +244,31 @@ uniforms: {
 
 		"tDiffuse": { type: "t", value: null },
 		"glowColor": { type: "c", value: new THREE.Color(0x84ccff) },
-		"p": { type: "f", value: 2 },
+		//"p": { type: "f", value: 2 },
+		"c": { type: "f", value: 1.0 },
+	"p": { type: "f", value: 3 },
+	"glowColor": { type: "c", value: new THREE.Color(0x84ccff) },
+	"viewVector": { type: "v3", value: materialCameraPosition }
 	},
 
 	vertexShader: [
+		uniform vec3 viewVector;
+		uniform float c;
+
+		
+
+	
 
 		"varying vec2 vUv;",
-	//	"void main() {",
-	//		"vUv = uv;",
-	//		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-	//	"}"
-
 	        "uniform float p;",
 	        "varying float intensity;",
 	        "void main(){",
 	            "vUv = uv;",
-	            "vec3 vNormal = normalize( normalMatrix * normal );",
-	            "intensity = pow(abs(1.0 - abs(dot(vNormal, vec3(0, 0, 1)))), p);",
+"vec3 vNormal = normalize( normalMatrix * normal );",
+"vec3 vNormel = normalize( normalMatrix * viewVector );",
+"intensity = pow( c - dot(vNormal, vNormel), p );",
+	            //"vec3 vNormal = normalize( normalMatrix * normal );",
+	            //"intensity = pow(abs(1.0 - abs(dot(vNormal, vec3(0, 0, 1)))), p);",
 	            "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 	        "}"
 	].join("\n"),
