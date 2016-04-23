@@ -242,14 +242,14 @@ THREE.TestRedShader = {
 
 uniforms: {
 
-		//"tDiffuse": { type: "t", value: null },
+		"tDiffuse": { type: "t", value: null },
 		"glowColor": { type: "c", value: new THREE.Color(0x84ccff) },
 		"p": { type: "f", value: 2 },
 	},
 
 	vertexShader: [
 
-	//	"varying vec2 vUv;",
+		"varying vec2 vUv;",
 	//	"void main() {",
 	//		"vUv = uv;",
 	//		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
@@ -258,6 +258,7 @@ uniforms: {
 	        "uniform float p;",
 	        "varying float intensity;",
 	        "void main(){",
+	            "vUv = uv;",
 	            "vec3 vNormal = normalize( normalMatrix * normal );",
 	            "intensity = pow(1.0 - abs(dot(vNormal, vec3(0, 0, 1))), p);",
 	            "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
@@ -266,8 +267,8 @@ uniforms: {
 
 	fragmentShader: [
 
-	//	"uniform sampler2D tDiffuse;",
-	//	"varying vec2 vUv;",
+		"uniform sampler2D tDiffuse;",
+		"varying vec2 vUv;",
 
 
 
@@ -275,7 +276,8 @@ uniforms: {
 	        "varying float intensity;",
 	        "void main() {",
 	            "vec3 glow = glowColor * intensity;",
-	            "gl_FragColor = vec4( glow, 1.0 );",
+	            "vec4 color = texture2D(tDiffuse, vUv);",
+	            "gl_FragColor = vec4( glow.x*color.r, glow.y*color.g, glow.z*color.b, 1.0*color.a );",
 	        "}"
 	].join("\n")
 
