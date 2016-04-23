@@ -11,7 +11,7 @@ THREE.TestRedShader = {
 		"}"
 	].join( "\n" ),
 	fragmentShader: [
-varying vec2 vUv;
+		"varying vec2 vUv;"
 		"uniform sampler2D tDiffuse;",
 		"uniform vec2 delta;",
 
