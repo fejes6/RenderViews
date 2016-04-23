@@ -1,6 +1,6 @@
 THREE.TestRedShader = {
 	uniforms: {
-		"tDiffuse": { type: "t", value: null },
+		"tSource": { type: "t", value: null },
 	},
 	vertexShader: [
 		"varying vec2 vUv;",
@@ -11,9 +11,12 @@ THREE.TestRedShader = {
 	].join( "\n" ),
 	fragmentShader: [
 		"varying vec2 vUv;",
-		"uniform sampler2D tDiffuse;",
+		"uniform sampler2D tSource;",
+		"uniform vec2 delta;",
+
+
 		"void main() {",
-			"gl_FragColor = texture2D( tDiffuse, vUv );",
+			"gl_FragColor = vec4(texture2D( tSource, vUv ).r, 1.0);",
 		"}"
 	].join( "\n" )
 };
