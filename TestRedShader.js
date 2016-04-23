@@ -172,7 +172,8 @@ THREE.TestRedShader = {
 
             };
 */
-
+/*
+//bez erroru ale cele sede
 THREE.TestRedShader = {
     
         
@@ -236,4 +237,4 @@ THREE.TestRedShader = {
             
 
             };
-
+*/
