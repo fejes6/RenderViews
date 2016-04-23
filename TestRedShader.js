@@ -178,13 +178,13 @@ THREE.TestRedShader = {
         
                 uniforms: {
 
-                    "tDiffuse": { type: "t", value: null },
+                    //"tDiffuse": { type: "t", value: null },
                     		"uDirLightPos":	{ type: "v3", value: new THREE.Vector3() },
                     		"uDirLightColor": { type: "c", value: new THREE.Color( 0xeeeeee ) },
                     
                     		"uAmbientLightColor": { type: "c", value: new THREE.Color( 0x050505 ) },
                     
-                    		//"uBaseColor":  { type: "c", value: new THREE.Color( 0xeeeeee ) },
+                    		"uBaseColor":  { type: "c", value: new THREE.Color( 0xeeeeee ) },
                     		"uLineColor1": { type: "c", value: new THREE.Color( 0x808080 ) },
                     		"uLineColor2": { type: "c", value: new THREE.Color( 0x000000 ) },
                     		"uLineColor3": { type: "c", value: new THREE.Color( 0x000000 ) },
@@ -194,10 +194,10 @@ THREE.TestRedShader = {
                 vertexShader: [
 
               		"varying vec3 vNormal;",
-              		"varying vec2 vUv;",
+              		//"varying vec2 vUv;",
               
               		"void main() {",
-              "vUv = uv;",
+              //"vUv = uv;",
               			"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
               			"vNormal = normalize( normalMatrix * normal );",
               
@@ -207,7 +207,7 @@ THREE.TestRedShader = {
 
                 fragmentShader: [
                  
-                 "uniform sampler2D tDiffuse;",
+                 //"uniform sampler2D tDiffuse;",
 
                  		//"uniform vec3 uBaseColor;",
                  		"uniform vec3 uLineColor1;",
@@ -221,16 +221,16 @@ THREE.TestRedShader = {
                  		"uniform vec3 uAmbientLightColor;",
                  
                  		"varying vec3 vNormal;",
-                 		"varying vec2 vUv;",
+                 		//"varying vec2 vUv;",
                  
                  		"void main() {",
                  
                  			"float camera = max( dot( normalize( vNormal ), vec3( 0.0, 0.0, 1.0 ) ), 0.4);",
                  			"float light = max( dot( normalize( vNormal ), uDirLightPos ), 0.0);",
                  			
-                 			"vec4 uBaseColor = texture2D(tDiffuse, vUv);",
+                 			//"vec4 uBaseColor = texture2D(tDiffuse, vUv);",
                  
-                 			"gl_FragColor = vec4( uBaseColor.rgb, 1.0 );",
+                 			"gl_FragColor = vec4( uBaseColor, 1.0 );",
                  
                  			"if ( length(uAmbientLightColor + uDirLightColor * light) < 1.00 ) {",
                  
