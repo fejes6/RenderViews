@@ -9,7 +9,7 @@
 
     uniforms: {
         "tDiffuse": { type: "t", value: null },
-        "amount":     { type: "f", value: 0.25 }
+        //"amount":     { type: "f", value: 0.25 }
     },
 
     vertexShader: [
@@ -17,7 +17,7 @@
     "varying vec2 vUv;",
     "void main() {",
         "vUv = uv;",
-        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 0.5 );",
+        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 
     "}"
 
@@ -27,13 +27,14 @@
     //"#extension GL_OES_standard_derivatives : enable",
 
     "uniform sampler2D tDiffuse;",
-    "uniform float amount;",
+    //"uniform float amount;",
     "varying vec2 vUv;",
 
     "void main() {",
 
         "vec4 color = texture2D(tDiffuse, vUv);",
-        "gl_FragColor = vec4(color.r*amount, color.g*amount, color.b*amount, 0.5);",
+        "gl_FragColor = vec4(0.0, color.g, color.b, 0.5);",
+        //"gl_FragColor = vec4(color.r*amount, color.g*amount, color.b*amount, 1.0);",
 
     "}"
 
