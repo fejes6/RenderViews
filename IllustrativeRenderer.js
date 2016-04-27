@@ -10,7 +10,8 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
    				// postprocessing
     self.initCalls.push(function () {
 				this.composer = new THREE.EffectComposer( this.renderer );
-				this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) );
+				var renderPass = new THREE.RenderPass( this.scene, this.camera ); 
+				this.composer.addPass( renderPass );
 
 //				var effect = new THREE.ShaderPass( THREE.TestRedShader );
             			//effect.uniforms[ 'amount' ].value = 0.75;
