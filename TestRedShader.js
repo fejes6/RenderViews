@@ -332,7 +332,7 @@ uniforms: {
 "varying float intensity;",
 
 "void main() {",
-	"vec4 color = texture2D(tDiffuse, vUv);",
+	"vec4 color = texture(tDiffuse, vUv);",
 	"if (intensity > 0.95)",
 
 		"color = vec4(1.0,0.5,0.5,1.0);",
