@@ -309,7 +309,7 @@ uniforms: {
 //        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 "uniform vec3 diffuse;",
 "varying float intensity;",
-"layout(location = 1) in vec3 N;",
+"uniform vec3 N;",
 "void main() {",
 	//"vec3 lightDir = normalize(vec3(gl_LightSource[0].position));",
 	"intensity = dot(diffuse,N);",
