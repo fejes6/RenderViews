@@ -297,13 +297,13 @@ uniforms: {
  THREE.TestRedShader = {
 
     uniforms: {
-        //"tDiffuse": { type: "t", value: null },
+        "tDiffuse": { type: "t", value: null },
         //"amount":     { type: "f", value: 0.25 }
     },
 
     vertexShader: [
 
-//    "varying vec2 vUv;",
+    "varying vec2 vUv;",
 //    "void main() {",
 //        "vUv = uv;",
 //        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
@@ -313,7 +313,7 @@ uniforms: {
 "void main() {",
 	//"vec3 lightDir = normalize(vec3(gl_LightSource[0].position));",
 	"intensity = dot(diffuse,N);",
-
+"vUv = uv;",
 	"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 
     "}"
@@ -322,8 +322,8 @@ uniforms: {
 
     fragmentShader: [
 
- //   "uniform sampler2D tDiffuse;",
-  //  "varying vec2 vUv;",
+    "uniform sampler2D tDiffuse;",
+    "varying vec2 vUv;",
 
  //   "void main() {",
 
@@ -332,7 +332,7 @@ uniforms: {
 "varying float intensity;",
 
 "void main() {",
-	"vec4 color;",
+	"vec4 color = texture2D(tDiffuse, vUv);",
 	"if (intensity > 0.95)",
 
 		"color = vec4(1.0,0.5,0.5,1.0);",
