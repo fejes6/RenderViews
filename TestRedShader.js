@@ -312,7 +312,7 @@ uniforms: {
 	"vec3 lightDir = normalize(vec3(gl_LightSource[0].position));",
 	"intensity = dot(lightDir,gl_Normal);",
 
-	"gl_Position = ftransform();",
+	"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 
     "}"
 
