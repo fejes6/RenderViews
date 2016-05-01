@@ -309,10 +309,10 @@ uniforms: {
 //        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 "varying float intensity;",
 "void main() {",
-	"vec3 lightDir = normalize(vec3(uTDLights[0].position));",
+	"vec3 lightDir = normalize(vec3(gl_LightSource[0].position));",
 	"intensity = dot(lightDir,gl_Normal);",
 
-	"gl_Position = ftransform(projectionMatrix * modelViewMatrix * vec4( position, 1.0 ));",
+	"gl_Position = ftransform();",
 
     "}"
 
