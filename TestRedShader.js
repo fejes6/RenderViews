@@ -305,10 +305,12 @@ uniforms: {
 
         "varying vec2 vUv;",
 	"uniform vec3 ec_light_dir;",
+	"uniform mat3 normal_matrix;",                    ///
 	"varying float intensity;",
 	"attribute vec3 a_normal;",
 	"void main() {",
-		"intensity = dot(ec_light_dir,a_normal);",
+	    "vec3 ec_normal = normalize(normal_matrix * a_normal);",           ///
+		"intensity = dot(ec_light_dir,ec_normal);",
 	"vUv = uv;",
 		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 
@@ -327,7 +329,7 @@ uniforms: {
 		"vec4 color = texture2D(tDiffuse, vUv);",
 		"if (intensity > 0.5)",
 	
-			"color = vec4(color.r*intensity,color.g*0.5,color.b*0.5,1.0);",
+			"color = vec4(color.r*1.0,color.g*0.5,color.b*0.5,1.0);",
 //		"else if (intensity > 0.5)",
 //			"color = vec4(color.r*0.6,color.g*0.3,color.b*0.3,1.0);",
 //		"else if (intensity > 0.25)",
