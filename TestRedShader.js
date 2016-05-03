@@ -327,7 +327,7 @@ uniforms: {
 		"vec4 color = texture2D(tDiffuse, vUv);",
 //		"if (intensity > 0.95)",
 	
-			"color = vec4(color.r*1.0,color.g*0.5,color.b*0.5,1.0);",
+			"color = vec4(color.r*intensity,color.g*0.5,color.b*0.5,1.0);",
 //		"else if (intensity > 0.5)",
 //			"color = vec4(color.r*0.6,color.g*0.3,color.b*0.3,1.0);",
 //		"else if (intensity > 0.25)",
