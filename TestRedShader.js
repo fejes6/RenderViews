@@ -325,14 +325,14 @@ uniforms: {
 
 	"void main() {",
 		"vec4 color = texture2D(tDiffuse, vUv);",
-//		"if (intensity > 0.95)",
+		"if (intensity > 0.95)",
 	
-//			"color = vec4(1.0,0.5,0.5,1.0);",
-//		"else if (intensity > 0.5)",
-//			"color = vec4(0.6,0.3,0.3,1.0);",
-//		"else if (intensity > 0.25)",
-//			"color = vec4(0.4,0.2,0.2,1.0);",
-//		"else",
+			"color = vec4(color.r*1.0,color.g*0.5,color.b*0.5,1.0);",
+		"else if (intensity > 0.5)",
+			"color = vec4(color.r*0.6,color.g*0.3,color.b*0.3,1.0);",
+		"else if (intensity > 0.25)",
+			"color = vec4(color.r*0.4,color.g*0.2,color.b*0.2,1.0);",
+		"else",
 			"color = vec4(color.r*0.2,color.g*0.1,color.b*0.1,1.0);",
 		"gl_FragColor = color;",
 
