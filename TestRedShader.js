@@ -304,11 +304,11 @@ uniforms: {
     vertexShader: [
 
         "varying vec2 vUv;",
-//	"uniform vec3 ec_light_dir;",
-//	"varying float intensity;",
-//	"attribute vec3 a_normal;",
+	"uniform vec3 ec_light_dir;",
+	"varying float intensity;",
+	"attribute vec3 a_normal;",
 	"void main() {",
-//		"intensity = dot(ec_light_dir,a_normal);",
+		"intensity = dot(ec_light_dir,a_normal);",
 	"vUv = uv;",
 		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 
