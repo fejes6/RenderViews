@@ -321,7 +321,7 @@ uniforms: {
     "uniform sampler2D tDiffuse;",
     "varying vec2 vUv;",
 
-//	"varying float intensity;",
+	"varying float intensity;",
 
 	"void main() {",
 		"vec4 color = texture2D(tDiffuse, vUv);",
@@ -333,7 +333,7 @@ uniforms: {
 //		"else if (intensity > 0.25)",
 //			"color = vec4(0.4,0.2,0.2,1.0);",
 //		"else",
-//			"color = vec4(0.2,0.1,0.1,1.0);",
+			"color = vec4(0.2,0.1,0.1,1.0);",
 		"gl_FragColor = color;",
 
 
