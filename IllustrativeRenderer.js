@@ -98,10 +98,10 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
 
     //First we need to add a new initialization call wich will be executed after the one of BasicThreeRenderer
     self.initCalls.push(function () { //push the init function to the list of initCalls
-        this.projector = new THREE.Projector(); //create a new Projector. It will be used to cast a ray through the scene and get the list of intersections of the ray with shapes 
-        document.addEventListener('mousemove', this.onDocumentMouseMove, false); //each time the mouse moves we want to execute our mouse move routine (defined below)
-        document.addEventListener('keydown', this.onDocumentKeyDown, false);
-        document.addEventListener('keyup', this.onDocumentKeyUp, false);
+//        this.projector = new THREE.Projector(); //create a new Projector. It will be used to cast a ray through the scene and get the list of intersections of the ray with shapes 
+//        document.addEventListener('mousemove', this.onDocumentMouseMove, false); //each time the mouse moves we want to execute our mouse move routine (defined below)
+//        document.addEventListener('keydown', this.onDocumentKeyDown, false);
+//        document.addEventListener('keyup', this.onDocumentKeyUp, false);
 
         this.interactiveScene = new THREE.Scene();
         this.rayScene = new THREE.Scene();
