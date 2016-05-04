@@ -172,7 +172,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
     });
 
     self.mouse = { x: 0, y: 0 }; //here we store the last mouse position. The mouse position is stored only when the mouse moves, but the scene is mostly updated with a much higher frequence
-
+/*
     self.onDocumentMouseMove = function onDocumentMouseMove( event ) 
     {
         //Update the mouse position, a transformation from screen to normalized device coordinates is necessary; notice the flipped y
@@ -369,7 +369,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
             delete this.ShapeSubscriptions[id];
         }
     });
-
+*/
     return self;
 }
 
