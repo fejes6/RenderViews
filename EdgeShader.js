@@ -56,13 +56,15 @@ THREE.EdgeShader = {
 			"for (float i=0.0; i<3.0; i++)",
 			"for (float j=0.0; j<3.0; j++) {",
 				"sample = texture2D( tDiffuse, vUv + texel * vec2(i-1.0,j-1.0) ).rgb;",
-				//"I[int(i)][int(j)] = length(sample);",
+				"int a = (int)i;",
+				"int b = (int)j;",
+				"I[a][b] = length(sample);",
 			"}",
 
 			/* calculate the convolution values for all the masks */
 			"for (int i=0; i<2; i++) {",
 				"float dp3 = dot(G[i][0], I[0]) + dot(G[i][1], I[1]) + dot(G[i][2], I[2]);",
-				//"cnv[i] = dp3 * dp3; ",
+				"cnv[i] = dp3 * dp3; ",
 			"}",
 
 
