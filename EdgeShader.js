@@ -199,21 +199,8 @@ THREE.EdgeShader = {
 				"float dp3 = dot(G[i][0], I[0]) + dot(G[i][1], I[1]) + dot(G[i][2], I[2]);",
 				"cnv[i] = dp3 * dp3; ",
 			"}",
-			
-			
-			//**
-			"vec4 final = vec4(0.5 * sqrt(cnv[0]*cnv[0]+cnv[1]*cnv[1]));",
-			"vec4 black = vec4(1.0,1.0,1.0,1.0);",
-			"vec4 white = vec4(0.0,0.0,0.0,1.0);",
-			
-			"if( final == black ){",
-				"gl_FragColor = white;",
-			"}else{",
-				"gl_FragColor = black;",
-			"}",
-			//**
 
-			//"gl_FragColor = vec4(0.5 * sqrt(cnv[0]*cnv[0]+cnv[1]*cnv[1]));",
+			"gl_FragColor = vec4(0.5 * sqrt(cnv[0]*cnv[0]+cnv[1]*cnv[1]));",
 		"} ",
 
 	].join("\n")
