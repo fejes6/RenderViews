@@ -23,15 +23,15 @@ THREE.TestDotShader = {
 };
 */
 
--//prvy 
--/**
-- * @author alteredq / http://alteredqualia.com/
-- *
-- * Dot screen shader
-- * based on glfx.js sepia shader
-- * https://github.com/evanw/glfx.js
-- */
--
+//prvy 
+/**
+ * @author alteredq / http://alteredqualia.com/
+ *
+ * Dot screen shader
+ * based on glfx.js sepia shader
+ * https://github.com/evanw/glfx.js
+ */
+
  
  THREE.TestDotShader = {
  	uniforms: {
