@@ -328,7 +328,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
                         this.interactiveScene.remove(mesh);
                 }
                 //this.RenderSingleFrame();
-                self.InteractiveRender();
+                self.IllustrativeRender();
             }
         }.bind(self));
 
