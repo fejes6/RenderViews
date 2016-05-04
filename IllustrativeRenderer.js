@@ -248,7 +248,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
 
             //Returns an array containing all objects in the scene with which the ray intersects. Result are ordered by increasing distance from the start of the ray.
             var intersects = ray.intersectObjects(this.picked ? this.rayScene.children.concat([this.picked]) : this.rayScene.children);
-
+*/
             ///////// THIS ALTERNATIVE DOES NOT USE THE KNOCKOUT BINDING (and stays here just for educative purposes, please read it first and compare to the approach used below)
             //If any intersection exists
             /*
@@ -279,7 +279,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
                 this.picked = null;
             }
             */
-
+/*
             ///////// THIS ALTERNATIVE USES THE KNOCKOUT BINDING        
             if (intersects.length > 0) {
                 //If the closest mesh intersected is not the currently stored intersection (i.e. picked) mesh
@@ -307,7 +307,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
                 //Remove previous intersection mesh reference by setting current intersection object to null
                 this.picked = null;
             }
-            /**/
+            
         }
     });
 
