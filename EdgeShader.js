@@ -206,7 +206,7 @@ THREE.EdgeShader = {
 			"vec4 black = vec4(1.0,1.0,1.0,1.0);",
 			"vec4 white = vec4(0.0,0.0,0.0,1.0);",
 			
-			"if(vec4 equal(final,black){",
+			"if( final == black ){",
 				"gl_FragColor = white;",
 			"}else{",
 				"gl_FragColor = black;",
