@@ -125,7 +125,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
         
         //POSTPROCESING
         			
-        			var effect = new THREE.ShaderPass( THREE.EdgeShader );
+        			var effect = new THREE.ShaderPass( THREE.TestDotShader );
         			effect.enabled = false;
         			
         			var renderPass = new THREE.RenderPass( this.fsqScene, this.RTTCamera ); 
