@@ -139,7 +139,7 @@ THREE.EdgeShader = {
 		"uniform vec2 aspect;",
 
 
-		"vec2 texel = vec2(1.0 / aspect.x, 1.0 / aspect.y);",
+		//"vec2 texel = vec2(1.0 / aspect.x, 1.0 / aspect.y);",
 
 		"mat3 G[2];",
 
