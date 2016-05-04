@@ -162,7 +162,7 @@ THREE.EdgeShader = {
 				"sample = texture2D( tDiffuse, vUv + texel * vec2(i-1.0,j-1.0) ).rgb;",
 				//"int a = int(i);",
 				//"int b = int(j);",
-				"I[int(i)][int(j)] = length(sample);",
+				"I[i][j] = length(sample);",
 			"}",
 
 			/* calculate the convolution values for all the masks */
