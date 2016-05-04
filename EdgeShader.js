@@ -111,7 +111,7 @@ THREE.EdgeShader = {
  * aspect: vec2 of (1/width, 1/height)
  */
 
-THREE.EdgeShader2 = {
+THREE.EdgeShader = {
 
 	uniforms: {
 
