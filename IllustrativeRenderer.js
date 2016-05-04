@@ -124,18 +124,14 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
         this.fsqScene.add(quad);
         
         //POSTPROCESING
+        			this.composer = new THREE.EffectComposer( this.renderer );
+        			var renderPass = new THREE.RenderPass( this.fsqScene, this.RTTCamera ); 
+        			this.composer.addPass( renderPass );
         			
         			var effect = new THREE.ShaderPass( THREE.TestDotShader );
-        			effect.enabled = false;
         			
-        			var renderPass = new THREE.RenderPass( this.fsqScene, this.RTTCamera ); 
-        			var effectCopy = new THREE.ShaderPass(THREE.CopyShader);
-        			effectCopy.renderToScreen = true;
-        			
-        			this.composer = new THREE.EffectComposer( this.renderer );
-				this.composer.addPass( renderPass );
-				this.composer.addPass( effect );
-				this.composer.addPass( effectCopy );
+        			effect.renderToScreen = true;
+        			this.composer.addPass( effect );
 
 //				var effect = new THREE.ShaderPass( THREE.TestRedShader );
             			//effect.uniforms[ 'amount' ].value = 0.75;
@@ -147,10 +143,6 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
 				
 				//effect.renderToScreen = true;
 				//this.composer.addPass( effect );
-        
-        
-        
-        
     });
 
     self.IllustrativeRenderer = function () {
