@@ -13,6 +13,8 @@ THREE.EdgeShader = {
 
 		"tDiffuse": { type: "t", value: null },
 		"aspect":    { type: "v2", value: new THREE.Vector2( 512, 512 ) },
+		"radius":    { type: "f", value: 1.0 },
+		"renderwidth":    { type: "f", value: 512.0 },
 	},
 
 	vertexShader: [
