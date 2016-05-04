@@ -65,6 +65,8 @@ THREE.EdgeShader = {
 				"cnv[i] = dp3 * dp3; ",
 			"}",
 
+
+
 			"gl_FragColor = vec4(0.5 * sqrt(cnv[0]*cnv[0]+cnv[1]*cnv[1]));",
 		"} ",
 
