@@ -173,7 +173,7 @@ THREE.TestRedShader = {
 
             };
 */
-
+/*
 //bez erroru ale cele sede
 THREE.TestRedShader = {
     
@@ -238,7 +238,7 @@ THREE.TestRedShader = {
             
 
             };
-
+*/
 /*
 //x ray shader - nefunkcny, vsetko je modre
 THREE.TestRedShader = {
@@ -294,7 +294,7 @@ uniforms: {
 };
 */
 
-/*
+
  THREE.TestRedShader = {
 
     uniforms: {
@@ -349,4 +349,4 @@ uniforms: {
     ].join("\n")
 
 };
-*/
+
