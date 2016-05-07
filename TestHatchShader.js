@@ -1,9 +1,9 @@
 THREE.TestHatchShader = {
     uniforms: {
         "tDiffuse": { type: "t", value: null },
-        "hatch0": { type: "t", value: THREE.ImageUtils.loadTexture( "textures/hatch_0.jpg" ) },
-        "hatch1": { type: "t", value: THREE.ImageUtils.loadTexture( "textures/hatch_1.jpg" ) },
-        "hatch2": { type: "t", value: THREE.ImageUtils.loadTexture( "textures/hatch_2.jpg" ) },
+        "hatch0": { type: "t", value: THREE.ImageUtils.loadTexture( "hatch_0.jpg" ) },
+        "hatch1": { type: "t", value: THREE.ImageUtils.loadTexture( "hatch_1.jpg" ) },
+        "hatch2": { type: "t", value: THREE.ImageUtils.loadTexture( "hatch_2.jpg" ) },
         //"amount":     { type: "f", value: 0.25 }
     },
     vertexShader: [
