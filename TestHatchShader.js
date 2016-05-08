@@ -1,4 +1,4 @@
-/*
+
 THREE.TestHatchShader = {
     uniforms: {
         "tDiffuse": { type: "t", value: null },
@@ -66,7 +66,7 @@ THREE.TestHatchShader = {
     "}"
     ].join("\n")
 };
-*/
+
 /*
 // sketch filter s pouzitim sobelovho operatora -- ok
 THREE.TestHatchShader = {
@@ -133,65 +133,3 @@ THREE.TestHatchShader = {
     ].join("\n")
 };
 */
-
-THREE.TestHatchShader = {
-    uniforms: {
-        "tDiffuse": { type: "t", value: null },
-        "hatchmap0": { type: "t", value: THREE.ImageUtils.loadTexture( "https://rawgit.com/fejes6/RenderViews/master/hatch_0.jpg" ) },
-        "hatchmap1": { type: "t", value: THREE.ImageUtils.loadTexture( "https://rawgit.com/fejes6/RenderViews/master/hatch_1.jpg" ) },
-        "hatch2": { type: "t", value: THREE.ImageUtils.loadTexture( "https://rawgit.com/fejes6/RenderViews/master/hatch_2.jpg" ) },
-        //"amount":     { type: "f", value: 0.25 }
-    },
-    vertexShader: [
-    "varying vec2 vUv;",
-    "void main() {",
-        "vUv = uv;",
-        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-    "}"
-    ].join("\n"),
-    
-    fragmentShader: [
-
-    "uniform sampler2D tDiffuse;",
-
-    "varying vec2 vUv;",
-
-
-
-"void main(){",
-    "float lum = length(texture2D(tDiffuse, gl_TexCoord[0].xy).rgb);",
-     
-    "gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
-     
-    "if (lum < 1.00) {",
-        "if (mod(gl_FragCoord.x + gl_FragCoord.y, 10.0) == 0.0) {",
-            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
-        "}",
-    "}",
-     
-    "if (lum < 0.75) {",
-        "if (mod(gl_FragCoord.x - gl_FragCoord.y, 10.0) == 0.0) {",
-            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
-        "}",
-    "}",
-     
-    "if (lum < 0.50) {",
-        "if (mod(gl_FragCoord.x + gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
-            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
-        "}",
-    "}",
-     
-    "if (lum < 0.3) {",
-        "if (mod(gl_FragCoord.x - gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
-            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
-        "}",
-    "}",
-
-
-
-
-
-
-    "}"
-    ].join("\n")
-};
