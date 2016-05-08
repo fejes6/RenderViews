@@ -68,10 +68,11 @@ THREE.TestHatchShader = {
 };
 */
 
+// sketch filter s pouzitim sobelovho operatora
 THREE.TestHatchShader = {
     uniforms: {
         "tDiffuse": { type: "t", value: null },
-        "intensity": {  type: "f", value: 0.8 },
+        "intensity": {  type: "f", value: 1.0 },
         "imageWidthFactor": {  type: "f", value: 512.0 },
         "imageHeightFactor": {  type: "f", value: 512.0 },
         //"amount":     { type: "f", value: 0.25 }
