@@ -178,7 +178,7 @@ THREE.TestHatchShader = {
 
 "float d = 0.5*(d1+d2+hl+vl)/(dot(c11,dt)+0.15);",
 
-"gl_FragColor.xyz = (1.1-pow(d,1.5))*c11;",
+"gl_FragColor.xyz = (1.1-pow(abs(d),1.5))*c11;",
  
 
 
