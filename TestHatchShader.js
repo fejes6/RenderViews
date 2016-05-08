@@ -158,7 +158,7 @@ THREE.TestHatchShader = {
 
 
 
-"uniform sampler2D normalmap;",
+//"uniform sampler2D normalmap;",
 "uniform sampler2D hatchmap0;",
 "uniform sampler2D hatchmap1;",
 
@@ -171,10 +171,10 @@ THREE.TestHatchShader = {
 	"hatch0 = normalize(hatch0)*0.0089;",
 
 
-	"float edgeSize=0.0019; // = 1/textureSize",
+	"float edgeSize=0.0019;", // = 1/textureSize
 
 	//sample colors for edge detection
-	"vec4 s0 = texture2D(tDiffuse, vUv+hatch0.xy);
+	"vec4 s0 = texture2D(tDiffuse, vUv+hatch0.xy);",
 	"vec4 s1 = texture2D(tDiffuse, vUv+vec2(0.0, edgeSize)+hatch0.xy);",
 	"vec4 s2 = texture2D(tDiffuse, vUv+vec2(0.0, -edgeSize)+hatch0.xy);",
 	"vec4 s3 = texture2D(tDiffuse, vUv+vec2(-edgeSize,0.0)+hatch0.xy);",
@@ -196,7 +196,7 @@ THREE.TestHatchShader = {
 	"wedge=max(0.0,wedge);",
 
 	//sample cel shading
-	"vec4 inedge = texture2D(normalmap, vUv+hatch0.xy);",
+	"vec4 inedge = texture2D(tDiffuse, vUv+hatch0.xy);",
 
 	//combine
 	"vec4 finalCol =inedge*vec4(1.0-wedge)*(s0+s02)*0.5;",
