@@ -137,9 +137,9 @@ THREE.TestHatchShader = {
 THREE.TestHatchShader = {
     uniforms: {
         "tDiffuse": { type: "t", value: null },
-        "intensity": {  type: "f", value: 1.0 },
-        "imageWidthFactor": {  type: "f", value: 512.0 },
-        "imageHeightFactor": {  type: "f", value: 512.0 },
+        "hatchmap0": { type: "t", value: THREE.ImageUtils.loadTexture( "https://rawgit.com/fejes6/RenderViews/master/hatch_0.jpg" ) },
+        "hatchmap1": { type: "t", value: THREE.ImageUtils.loadTexture( "https://rawgit.com/fejes6/RenderViews/master/hatch_1.jpg" ) },
+        "hatch2": { type: "t", value: THREE.ImageUtils.loadTexture( "https://rawgit.com/fejes6/RenderViews/master/hatch_2.jpg" ) },
         //"amount":     { type: "f", value: 0.25 }
     },
     vertexShader: [
@@ -158,28 +158,53 @@ THREE.TestHatchShader = {
 
 
 
-"void main(){",
-"vec3 c00 = texture2D(tDiffuse, vUv).xyz;",
-"vec3 c10 = texture2D(tDiffuse, vUv).xyz;", 
-"vec3 c20 = texture2D(tDiffuse, vUv).xyz;",
-"vec3 c01 = texture2D(tDiffuse, vUv).xyz;", 
-"vec3 c11 = texture2D(tDiffuse, vUv).xyz;", 
-"vec3 c21 = texture2D(tDiffuse, vUv).xyz;", 
-"vec3 c02 = texture2D(tDiffuse, vUv).xyz;", 
-"vec3 c12 = texture2D(tDiffuse, vUv).xyz;", 
-"vec3 c22 = texture2D(tDiffuse, vUv).xyz;", 
+"uniform sampler2D normalmap;",
+"uniform sampler2D hatchmap0;",
+"uniform sampler2D hatchmap1;",
 
-"vec3 dt = vec3(1.0,1.0,1.0);", 
+"void main()",
+"{",
 
-"float d1=dot(abs(c00-c22),dt);",
-"float d2=dot(abs(c20-c02),dt);",
-"float hl=dot(abs(c01-c21),dt);",
-"float vl=dot(abs(c10-c12),dt);",
+	
+	//perlin noise for edge & color distortion
+	"vec4 hatch0 = texture2D(hatchmap0, vUv)*2.0-vec4(1.0);",
+	"hatch0 = normalize(hatch0)*0.0089;",
 
-"float d = 0.5*(d1+d2+hl+vl)/(dot(c11,dt)+0.15);",
 
-"gl_FragColor.xyz = (1.1-pow(abs(d),1.5))*c11;",
- 
+	"float edgeSize=0.0019; // = 1/textureSize",
+
+	//sample colors for edge detection
+	"vec4 s0 = texture2D(tDiffuse, vUv+hatch0.xy);
+	"vec4 s1 = texture2D(tDiffuse, vUv+vec2(0.0, edgeSize)+hatch0.xy);",
+	"vec4 s2 = texture2D(tDiffuse, vUv+vec2(0.0, -edgeSize)+hatch0.xy);",
+	"vec4 s3 = texture2D(tDiffuse, vUv+vec2(-edgeSize,0.0)+hatch0.xy);",
+	"vec4 s4 = texture2D(tDiffuse, vUv+vec2(edgeSize,0.0)+hatch0.xy);",
+
+	"vec4 s5 = texture2D(tDiffuse, vUv+vec2(edgeSize)+hatch0.xy);",
+	"vec4 s6 = texture2D(tDiffuse, vUv+vec2(-edgeSize)+hatch0.xy);",
+	"vec4 s7 = texture2D(tDiffuse, vUv+vec2(-edgeSize,edgeSize)+hatch0.xy);",
+	"vec4 s8 = texture2D(tDiffuse, vUv+vec2(edgeSize,-edgeSize)+hatch0.xy);",
+
+	//extra sample for overlapping of colors
+	"vec4 s02 = texture2D(tDiffuse, vUv-hatch0.xy*1.5); ",
+
+	//laplace edge detection
+	"vec3 edge=s1.xyz+s2.xyz+s3.xyz+s4.xyz+s5.xyz+s6.xyz+s7.xyz+s8.xyz+s0.xyz*vec3(-8.0);",
+
+	//makes edges white
+	"float wedge = min(1.0,(edge.x+edge.y+edge.z)*1000.0);",
+	"wedge=max(0.0,wedge);",
+
+	//sample cel shading
+	"vec4 inedge = texture2D(normalmap, vUv+hatch0.xy);",
+
+	//combine
+	"vec4 finalCol =inedge*vec4(1.0-wedge)*(s0+s02)*0.5;",
+
+	//add shadows (stored in colormap alpha channel)
+	"gl_FragColor =(1.0-s0.w)*vec4(0.4)*finalCol+finalCol*s0.w;",
+
+
 
 
     "}"
