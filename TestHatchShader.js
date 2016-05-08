@@ -71,7 +71,7 @@ THREE.TestHatchShader = {
 THREE.TestHatchShader = {
     uniforms: {
         "tDiffuse": { type: "t", value: null },
-        "intensity": {  type: "f", value: 0.1 },
+        "intensity": {  type: "f", value: 0.8 },
         "imageWidthFactor": {  type: "f", value: 512.0 },
         "imageHeightFactor": {  type: "f", value: 512.0 },
         //"amount":     { type: "f", value: 0.25 }
