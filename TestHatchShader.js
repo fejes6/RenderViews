@@ -67,8 +67,8 @@ THREE.TestHatchShader = {
     ].join("\n")
 };
 */
-
-// sketch filter s pouzitim sobelovho operatora
+/*
+// sketch filter s pouzitim sobelovho operatora -- ok
 THREE.TestHatchShader = {
     uniforms: {
         "tDiffuse": { type: "t", value: null },
@@ -126,6 +126,59 @@ THREE.TestHatchShader = {
      "vec3 target = vec3(mag);",
 
     "gl_FragColor = vec4(mix(textureColor, target, intensity), 1.0);",
+ 
+
+
+    "}"
+    ].join("\n")
+};
+*/
+
+THREE.TestHatchShader = {
+    uniforms: {
+        "tDiffuse": { type: "t", value: null },
+        "intensity": {  type: "f", value: 1.0 },
+        "imageWidthFactor": {  type: "f", value: 512.0 },
+        "imageHeightFactor": {  type: "f", value: 512.0 },
+        //"amount":     { type: "f", value: 0.25 }
+    },
+    vertexShader: [
+    "varying vec2 vUv;",
+    "void main() {",
+        "vUv = uv;",
+        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+    "}"
+    ].join("\n"),
+    
+    fragmentShader: [
+
+    "uniform sampler2D tDiffuse;",
+
+    "varying vec2 vUv;",
+
+
+
+"void main(){",
+"vec3 c00 = texture2D(tDiffuse, vUv.xy).xyz;",
+"vec3 c10 = texture2D(tDiffuse, vUv.xy).xyz;", 
+"vec3 c20 = texture2D(tDiffuse, vUv.zw).xyz;",
+"vec3 c01 = texture2D(tDiffuse, vUv.xy).xyz;", 
+"vec3 c11 = texture2D(tDiffuse, vUv.xy).xyz;", 
+"vec3 c21 = texture2D(tDiffuse, vUv.xy).xyz;", 
+"vec3 c02 = texture2D(tDiffuse, vUv.zw).xyz;", 
+"vec3 c12 = texture2D(tDiffuse, vUv.xy).xyz;", 
+"vec3 c22 = texture2D(tDiffuse, vUv.xy).xyz;", 
+
+"vec3 dt = vec3(1.0,1.0,1.0);", 
+
+"float d1=dot(abs(c00-c22),dt);",
+"float d2=dot(abs(c20-c02),dt);",
+"float hl=dot(abs(c01-c21),dt);",
+"float vl=dot(abs(c10-c12),dt);",
+
+"float d = 0.5*(d1+d2+hl+vl)/(dot(c11,dt)+0.15);",
+
+"gl_FragColor.xyz = (1.1-pow(d,1.5))*c11;",
  
 
 
