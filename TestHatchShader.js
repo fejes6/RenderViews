@@ -144,9 +144,7 @@ THREE.TestHatchShader = {
     },
     vertexShader: [
     "varying vec2 vUv;",
-    "attribute vec2 a_texcoord;", 
     "void main() {",
-        "v_texcoord = a_texcoord;",
         "vUv = uv;",
         "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
     "}"
@@ -157,7 +155,6 @@ THREE.TestHatchShader = {
     "uniform sampler2D tDiffuse;",
 
     "varying vec2 vUv;",
-"attribute vec2 v_texcoord;", 
 
 
 
