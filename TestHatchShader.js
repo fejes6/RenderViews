@@ -144,7 +144,9 @@ THREE.TestHatchShader = {
     },
     vertexShader: [
     "varying vec2 vUv;",
+    "attribute vec2 a_texcoord;", 
     "void main() {",
+        "v_texcoord = a_texcoord;",
         "vUv = uv;",
         "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
     "}"
@@ -155,35 +157,35 @@ THREE.TestHatchShader = {
     "uniform sampler2D tDiffuse;",
 
     "varying vec2 vUv;",
-
+"attribute vec2 v_texcoord;", 
 
 
 
 "void main(){",
-    "float lum = length(texture2D(tDiffuse, vUv).rgb);",
+    "float lum = length(texture2D(tDiffuse, v_texcoord).rgb);",
      
     "gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
      
     "if (lum < 1.00) {",
-        "if (mod(vUv.x + vUv.y, 10.0) == 0.0) {",
+        "if (mod(v_texcoord.x + v_texcoord.y, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
         "}",
     "}",
      
     "if (lum < 0.75) {",
-        "if (mod(vUv.x - vUv.y, 10.0) == 0.0) {",
+        "if (mod(v_texcoord.x - v_texcoord.y, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
         "}",
     "}",
      
     "if (lum < 0.50) {",
-        "if (mod(vUv.x + vUv.y - 5.0, 10.0) == 0.0) {",
+        "if (mod(v_texcoord.x + v_texcoord.y - 5.0, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
         "}",
     "}",
      
     "if (lum < 0.3) {",
-        "if (mod(vUv.x - vUv.y - 5.0, 10.0) == 0.0) {",
+        "if (mod(v_texcoord.x - v_texcoord.y - 5.0, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
         "}",
     "}",
