@@ -129,6 +129,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
         			this.composer.addPass( renderPass );
         			
         			var effect = new THREE.ShaderPass( THREE.TestHatchShader );
+        			effect.uniforms.hatch0.value = THREE.ImageUtils.loadTexture( "hatch_0.jpg" );
         			
         			effect.renderToScreen = true;
         			this.composer.addPass( effect );
