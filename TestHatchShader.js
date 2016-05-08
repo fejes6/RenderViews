@@ -159,15 +159,15 @@ THREE.TestHatchShader = {
 
 
 "void main(){",
-"vec3 c00 = texture2D(tDiffuse, vUv.xy).xyz;",
-"vec3 c10 = texture2D(tDiffuse, vUv.xy).xyz;", 
-"vec3 c20 = texture2D(tDiffuse, vUv.zw).xyz;",
-"vec3 c01 = texture2D(tDiffuse, vUv.xy).xyz;", 
-"vec3 c11 = texture2D(tDiffuse, vUv.xy).xyz;", 
-"vec3 c21 = texture2D(tDiffuse, vUv.xy).xyz;", 
-"vec3 c02 = texture2D(tDiffuse, vUv.zw).xyz;", 
-"vec3 c12 = texture2D(tDiffuse, vUv.xy).xyz;", 
-"vec3 c22 = texture2D(tDiffuse, vUv.xy).xyz;", 
+"vec3 c00 = texture2D(tDiffuse, vUv).xyz;",
+"vec3 c10 = texture2D(tDiffuse, vUv).xyz;", 
+"vec3 c20 = texture2D(tDiffuse, vUv).xyz;",
+"vec3 c01 = texture2D(tDiffuse, vUv).xyz;", 
+"vec3 c11 = texture2D(tDiffuse, vUv).xyz;", 
+"vec3 c21 = texture2D(tDiffuse, vUv).xyz;", 
+"vec3 c02 = texture2D(tDiffuse, vUv).xyz;", 
+"vec3 c12 = texture2D(tDiffuse, vUv).xyz;", 
+"vec3 c22 = texture2D(tDiffuse, vUv).xyz;", 
 
 "vec3 dt = vec3(1.0,1.0,1.0);", 
 
