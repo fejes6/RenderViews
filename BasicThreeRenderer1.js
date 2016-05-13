@@ -59,7 +59,7 @@ function BasicThreeRenderer1(domQuery, basicOffscreen) { //for whole window call
             }            
 
             if (this.doesWebGL) {
-                this.renderer = new THREE.WebGLRenderer({ antialias: true });
+                this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
                 //this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             }
             else {
