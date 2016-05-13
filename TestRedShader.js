@@ -288,7 +288,7 @@ uniforms: {
 	        "void main() {",
 	            "vec3 glow = glowColor * intensity;",
 	            "vec4 color = texture2D(tDiffuse, vUv);",
-	            "gl_FragColor = vec4( glow.x*color.r, glow.y*color.g, glow.z*color.b, 0.5 );",
+	            "gl_FragColor = vec4( glow.x, glow.y, glow.z, 0.5 );",
 	        "}"
 	].join("\n")
 };
