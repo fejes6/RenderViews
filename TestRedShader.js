@@ -388,25 +388,25 @@ uniforms: {
      
     "gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
      
-    "if (lum > 0.95) {",
+    "if (lum < 1.00) {",
 //        "if (mod(gl_FragCoord.x + gl_FragCoord.y, 10.0) == 0.0) {",
             "gl_FragColor = vec4(1.0,1.0,0.5,0.5);",
 //        "}",
     "}",
      
-    "if (lum > 0.5) {",
+    "if (lum < 0.75) {",
 //        "if (mod(gl_FragCoord.x - gl_FragCoord.y, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.6,0.3,0.3,1.0);",
 //        "}",
     "}",
      
-    "if (lum > 0.25) {",
+    "if (lum < 0.50) {",
 //        "if (mod(gl_FragCoord.x + gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.4,0.2,0.2,1.0);",
 //        "}",
     "}",
      
-    "else {",
+    "if (lum < 0.3) {",
 //        "if (mod(gl_FragCoord.x - gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.2,0.1,0.1,1.0);",
 //        "}",
