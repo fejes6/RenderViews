@@ -350,7 +350,7 @@ uniforms: {
 
 };
 */
-/*
+
  THREE.TestRedShader = {
 
     uniforms: {
@@ -389,27 +389,27 @@ uniforms: {
     "gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
      
     "if (lum < 1.00) {",
-        "if (mod(gl_FragCoord.x + gl_FragCoord.y, 10.0) == 0.0) {",
-            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
-        "}",
+//        "if (mod(gl_FragCoord.x + gl_FragCoord.y, 10.0) == 0.0) {",
+            "gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);",
+//        "}",
     "}",
      
     "if (lum < 0.75) {",
-        "if (mod(gl_FragCoord.x - gl_FragCoord.y, 10.0) == 0.0) {",
-            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
-        "}",
+//        "if (mod(gl_FragCoord.x - gl_FragCoord.y, 10.0) == 0.0) {",
+            "gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);",
+//        "}",
     "}",
      
     "if (lum < 0.50) {",
-        "if (mod(gl_FragCoord.x + gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
-            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
-        "}",
+//        "if (mod(gl_FragCoord.x + gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
+            "gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);",
+//        "}",
     "}",
      
     "if (lum < 0.3) {",
-        "if (mod(gl_FragCoord.x - gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
-            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
-        "}",
+//        "if (mod(gl_FragCoord.x - gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
+            "gl_FragColor = vec4(0.0, 0.5, 0.5, 1.0);",
+//        "}",
     "}",
 "}"
 
@@ -417,159 +417,4 @@ uniforms: {
     ].join("\n")
 
 };
-*/
-THREE.TestRedShader = {
 
-uniforms: {
-
-		"tDiffuse": { type: "t", value: null },
-		//"glowColor": { type: "c", value: new THREE.Color(0x84ccff) },
-		"EdgeFalloff": { type: "f", value: 0.5 },
-		"c": { type: "f", value: 1.0 },
-	"p": { type: "f", value: 3 },
-	"glowColor": { type: "c", value: new THREE.Color(0x84ccff) },
-	"viewVector": { type: "v3", value: new THREE.Vector3(20,30,0.76) }
-	},
-
-	vertexShader: [
-		"uniform vec3 viewVector;",
-		"uniform float c;",
-
-		
-"attribute vec4 a_vertex;",
-"uniform mat3 normal_matrix;",
-"attribute vec3 a_normal;", 
-	
-
-		"varying vec2 vUv;",
-"varying vec3 P;",
-"varying vec3 N;",
-"varying vec3 I;",
- 
-"void main()",
-"{",
-    //Transform vertex by modelview and projection matrices
-	"vUv = uv;",
-		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-     
-    // Position in clip space
-    "P = vec3(modelViewMatrix * a_vertex);",
-     
-    // Normal transform (transposed model-view inverse)
-    "N = normal_matrix * a_normal;",
-     
-    // Incident vector
-    "I = P;",
-     
-    // Forward current color and texture coordinates after applying texture matrix
-//    "gl_FrontColor = gl_Color;",
-//    "gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;",
-"}"
-	].join("\n"),
-
-	fragmentShader: [
-		
-"uniform sampler2D tDiffuse;",
-    "varying vec2 vUv;",
-
-"varying vec3 P;",
-"varying vec3 N;",
-"varying vec3 I;",
- 
-"uniform float EdgeFalloff;",
- 
-"void main()",
-"{",
-"vec4 color = texture2D(tDiffuse, vUv);",
-    "float opacity = dot(normalize(N), normalize(-I));",
-    "opacity = abs(opacity);",
-    "opacity = 1.0 - pow(opacity, EdgeFalloff);",
-     
-    "gl_FragColor = opacity * color;",
-"}"
-	].join("\n")
-};
- THREE.TestRedShader = {
-
-    uniforms: {
-        "tDiffuse": { type: "t", value: null },
-        //"amount":     { type: "f", value: 0.25 }
-        "vx_offset":     { type: "f", value: 0.25 }, //nastav
-        "rt_w":     { type: "f", value: 512 },
-        "rt_h":     { type: "f", value: 512 },
-        "hatch_y_offset":     { type: "f", value: 5.0 },
-        "lum_threshold_1":     { type: "f", value: 1.0 },
-        "lum_threshold_2":     { type: "f", value: 0.7 },
-        "lum_threshold_3":     { type: "f", value: 0.5 },
-        "lum_threshold_4":     { type: "f", value: 0.3 }
-
-    },
-
-    vertexShader: [
-
-    "varying vec2 vUv;",
-    "void main() {",
-        "vUv = uv;",
-        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-
-    "}"
-
-    ].join("\n"),
-
-    fragmentShader: [
-"uniform sampler2D tDiffuse;", // 0
-"uniform float vx_offset;",
-"uniform float rt_w;", // GeeXLab built-in
-"uniform float rt_h;", // GeeXLab built-in
-"uniform float hatch_y_offset;", // 5.0
-"uniform float lum_threshold_1;", // 1.0
-"uniform float lum_threshold_2;", // 0.7
-"uniform float lum_threshold_3;", // 0.5
-"uniform float lum_threshold_4;", // 0.3
-"varying vec2 vUv;",
-"void main() ",
-"{ ",
-  "vec2 uv = vUv;",
-  
-  "vec3 tc = vec3(1.0, 0.0, 0.0);",
-  "if (uv.x < (vx_offset-0.005))",
-   "{",
-    "float lum = length(texture2D(tDiffuse, uv).rgb);",
-    "tc = vec3(1.0, 1.0, 1.0);",
-  
-      "if (lum < lum_threshold_1) ",
-    "{",
-      "if (mod(gl_FragCoord.x + gl_FragCoord.y, 10.0) == 0.0) ",
-        "tc = vec3(0.0, 0.0, 0.0);",
-    "}",  
-  
-    "if (lum < lum_threshold_2) ",
-    "{",
-      "if (mod(gl_FragCoord.x - gl_FragCoord.y, 10.0) == 0.0) ",
-        "tc = vec3(0.0, 0.0, 0.0);",
-    "}  ",
-  
-    "if (lum < lum_threshold_3)", 
-    "{",
-      "if (mod(gl_FragCoord.x + gl_FragCoord.y - hatch_y_offset, 10.0) == 0.0)", 
-        "tc = vec3(0.0, 0.0, 0.0);",
-    "}  ",
-  
-    "if (lum < lum_threshold_4)", 
-    "{",
-      "if (mod(gl_FragCoord.x - gl_FragCoord.y - hatch_y_offset, 10.0) == 0.0) ",
-        "tc = vec3(0.0, 0.0, 0.0);",
-    "}",
-  "}",
-  "else if (gl_FragCoord.x >=(vx_offset+0.005))",
-  "{",
-   "tc = texture2D(tDiffuse, uv).rgb;",
-  "}",
-  
-  "gl_FragColor = vec4(tc, 1.0);",
-"}"
-
-
-    ].join("\n")
-
-};
