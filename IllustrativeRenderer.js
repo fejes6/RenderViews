@@ -148,9 +148,9 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
 
     self.IllustrativeRenderer = function () {
         if (!this.imgOverride) {
-            this.my_renderer.clear(true, false, false);
-            this.my_renderer.render(this.fsqScene, this.RTTCamera);
-            this.my_renderer.render(self.debugRays ? this.rayScene : this.interactiveScene, this.camera);
+            this.mrenderer.clear(true, false, false);
+            this.renderer.render(this.fsqScene, this.RTTCamera);
+            this.renderer.render(self.debugRays ? this.rayScene : this.interactiveScene, this.camera);
             this.composer.render();
         }
     }
