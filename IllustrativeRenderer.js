@@ -127,7 +127,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
         //POSTPROCESING
        // this.my_renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
         			this.composer = new THREE.EffectComposer( this.renderer );
-        			var renderPass = new THREE.RenderPass( this.fsqScene, this.RTTCamera ); 
+        			var renderPass = new THREE.RenderPass( this.scene, this.camera ); 
         			this.composer.addPass( renderPass );
         			
         			var effect = new THREE.ShaderPass( THREE.TestRedShader );
