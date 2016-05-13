@@ -80,7 +80,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
     self.composer = null;
     self.interactiveScene = null;
     self.rayScene = null;
-    self.renderer.alpha = true;
+    this.renderer.alpha = true;
 
     self.IMeshes = {};
 
