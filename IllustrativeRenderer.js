@@ -80,7 +80,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
     self.composer = null;
     self.interactiveScene = null;
     self.rayScene = null;
-    self.my_renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
+    self.my_renderer = null;
 
     self.IMeshes = {};
 
@@ -125,6 +125,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
         this.fsqScene.add(quad);
         
         //POSTPROCESING
+        this.my_renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
         			this.composer = new THREE.EffectComposer( this.my_renderer );
         			var renderPass = new THREE.RenderPass( this.fsqScene, this.RTTCamera ); 
         			this.composer.addPass( renderPass );
