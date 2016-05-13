@@ -350,77 +350,7 @@ uniforms: {
 
 };
 */
-THREE.TestRedShader = {
 
-uniforms: {
-
-		"tDiffuse": { type: "t", value: null },
-		//"glowColor": { type: "c", value: new THREE.Color(0x84ccff) },
-		"EdgeFalloff": { type: "f", value: 0.5 },
-		"c": { type: "f", value: 1.0 },
-	"p": { type: "f", value: 3 },
-	"glowColor": { type: "c", value: new THREE.Color(0x84ccff) },
-	"viewVector": { type: "v3", value: new THREE.Vector3(20,30,0.76) }
-	},
-
-	vertexShader: [
-		"uniform vec3 viewVector;",
-		"uniform float c;",
-
-		
-"attribute vec4 a_vertex;",
-"uniform mat3 normal_matrix;",
-"attribute vec3 a_normal;", 
-	
-
-		"varying vec2 vUv;",
-"varying vec3 P;",
-"varying vec3 N;",
-"varying vec3 I;",
- 
-"void main()",
-"{",
-    //Transform vertex by modelview and projection matrices
-	"vUv = uv;",
-		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-     
-    // Position in clip space
-    "P = vec3(modelViewMatrix * a_vertex);",
-     
-    // Normal transform (transposed model-view inverse)
-    "N = normal_matrix * a_normal;",
-     
-    // Incident vector
-    "I = P;",
-     
-    // Forward current color and texture coordinates after applying texture matrix
-//    "gl_FrontColor = gl_Color;",
-//    "gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;",
-"}"
-	].join("\n"),
-
-	fragmentShader: [
-		
-"uniform sampler2D tDiffuse;",
-    "varying vec2 vUv;",
-
-"varying vec3 P;",
-"varying vec3 N;",
-"varying vec3 I;",
- 
-"uniform float EdgeFalloff;",
- 
-"void main()",
-"{",
-"vec4 color = texture2D(tDiffuse, vUv);",
-    "float opacity = dot(normalize(N), normalize(-I));",
-    "opacity = abs(opacity);",
-    "opacity = 1.0 - pow(opacity, EdgeFalloff);",
-     
-    "gl_FragColor = opacity * color;",
-"}"
-	].join("\n")
-};
  THREE.TestRedShader = {
 
     uniforms: {
