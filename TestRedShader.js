@@ -426,7 +426,15 @@ uniforms: {
     uniforms: {
         "tDiffuse": { type: "t", value: null },
         //"amount":     { type: "f", value: 0.25 }
-        "amount":     { type: "f", value: 0.25 }
+        "vx_offset":     { type: "f", value: 0.25 }, //nastav
+        "rt_w":     { type: "f", value: 512 },
+        "rt_h":     { type: "f", value: 512 },
+        "hatch_y_offset":     { type: "f", value: 5.0 },
+        "lum_threshold_1":     { type: "f", value: 1.0 },
+        "lum_threshold_2":     { type: "f", value: 0.7 },
+        "lum_threshold_3":     { type: "f", value: 0.5 },
+        "lum_threshold_4":     { type: "f", value: 0.3 }
+
     },
 
     vertexShader: [
@@ -441,7 +449,7 @@ uniforms: {
     ].join("\n"),
 
     fragmentShader: [
-"uniform sampler2D sceneTex;", // 0
+"uniform sampler2D tDiffuse;", // 0
 "uniform float vx_offset;",
 "uniform float rt_w;", // GeeXLab built-in
 "uniform float rt_h;", // GeeXLab built-in
@@ -450,43 +458,44 @@ uniforms: {
 "uniform float lum_threshold_2;", // 0.7
 "uniform float lum_threshold_3;", // 0.5
 "uniform float lum_threshold_4;", // 0.3
+"varying vec2 vUv;",
 "void main() ",
 "{ ",
-  "vec2 uv = gl_TexCoord[0].xy;",
+  "vec2 uv = vUv;",
   
   "vec3 tc = vec3(1.0, 0.0, 0.0);",
   "if (uv.x &lt; (vx_offset-0.005))",
    "{",
-    "float lum = length(texture2D(sceneTex, uv).rgb);",
+    "float lum = length(texture2D(tDiffuse, uv).rgb);",
     "tc = vec3(1.0, 1.0, 1.0);",
   
       "if (lum &lt; lum_threshold_1) ",
     "{",
-      "if (mod(gl_FragCoord.x + gl_FragCoord.y, 10.0) == 0.0) ",
+      "if (mod(uv.x + uv.y, 10.0) == 0.0) ",
         "tc = vec3(0.0, 0.0, 0.0);",
     "}",  
   
     "if (lum &lt; lum_threshold_2) ",
     "{",
-      "if (mod(gl_FragCoord.x - gl_FragCoord.y, 10.0) == 0.0) ",
+      "if (mod(uv.x - uv.y, 10.0) == 0.0) ",
         "tc = vec3(0.0, 0.0, 0.0);",
     "}  ",
   
     "if (lum &lt; lum_threshold_3)", 
     "{",
-      "if (mod(gl_FragCoord.x + gl_FragCoord.y - hatch_y_offset, 10.0) == 0.0)", 
+      "if (mod(uv.x + uv.y - hatch_y_offset, 10.0) == 0.0)", 
         "tc = vec3(0.0, 0.0, 0.0);",
     "}  ",
   
     "if (lum &lt; lum_threshold_4)", 
     "{",
-      "if (mod(gl_FragCoord.x - gl_FragCoord.y - hatch_y_offset, 10.0) == 0.0) ",
+      "if (mod(uv.x - uv.y - hatch_y_offset, 10.0) == 0.0) ",
         "tc = vec3(0.0, 0.0, 0.0);",
     "}",
   "}",
   "else if (uv.x&gt;=(vx_offset+0.005))",
   "{",
-   "tc = texture2D(sceneTex, uv).rgb;",
+   "tc = texture2D(tDiffuse, uv).rgb;",
   "}",
   
   "gl_FragColor = vec4(tc, 1.0);",
