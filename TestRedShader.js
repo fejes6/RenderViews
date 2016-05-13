@@ -380,55 +380,37 @@ uniforms: {
 
     fragmentShader: [
 "uniform sampler2D tDiffuse;", // 0
-"uniform float vx_offset;",
-"uniform float rt_w;", // GeeXLab built-in
-"uniform float rt_h;", // GeeXLab built-in
-"uniform float hatch_y_offset;", // 5.0
-"uniform float lum_threshold_1;", // 1.0
-"uniform float lum_threshold_2;", // 0.7
-"uniform float lum_threshold_3;", // 0.5
-"uniform float lum_threshold_4;", // 0.3
 "varying vec2 vUv;",
-"void main() ",
-"{ ",
-  "vec2 uv = vUv;",
-  
-  "vec3 tc = vec3(1.0, 0.0, 0.0);",
-  "if (uv.x < (vx_offset-0.005))",
-   "{",
-    "float lum = length(texture2D(tDiffuse, uv).rgb);",
-    "tc = vec3(1.0, 1.0, 1.0);",
-  
-      "if (lum < lum_threshold_1) ",
-    "{",
-      "if (mod(uv.x + uv.y, 10.0) == 0.0) ",
-        "tc = vec3(0.0, 0.0, 0.0);",
-    "}",  
-  
-    "if (lum < lum_threshold_2) ",
-    "{",
-      "if (mod(uv.x - uv.y, 10.0) == 0.0) ",
-        "tc = vec3(0.0, 0.0, 0.0);",
-    "}  ",
-  
-    "if (lum < lum_threshold_3)", 
-    "{",
-      "if (mod(uv.x + uv.y - hatch_y_offset, 10.0) == 0.0)", 
-        "tc = vec3(0.0, 0.0, 0.0);",
-    "}  ",
-  
-    "if (lum < lum_threshold_4)", 
-    "{",
-      "if (mod(uv.x - uv.y - hatch_y_offset, 10.0) == 0.0) ",
-        "tc = vec3(0.0, 0.0, 0.0);",
+
+"void main()",
+"{",
+    "float lum = length(texture2D(tDiffuse, vUv).rgb);",
+     
+    "gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
+     
+    "if (lum < 1.00) {",
+        "if (mod(gl_FragCoord.x + gl_FragCoord.y, 10.0) == 0.0) {",
+            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
+        "}",
     "}",
-  "}",
-  "else if (uv.x >=(vx_offset+0.005))",
-  "{",
-   "tc = texture2D(tDiffuse, uv).rgb;",
-  "}",
-  
-  "gl_FragColor = vec4(tc, 1.0);",
+     
+    "if (lum < 0.75) {",
+        "if (mod(gl_FragCoord.x - gl_FragCoord.y, 10.0) == 0.0) {",
+            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
+        "}",
+    "}",
+     
+    "if (lum < 0.50) {",
+        "if (mod(gl_FragCoord.x + gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
+            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
+        "}",
+    "}",
+     
+    "if (lum < 0.3) {",
+        "if (mod(gl_FragCoord.x - gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
+            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
+        "}",
+    "}",
 "}"
 
 
