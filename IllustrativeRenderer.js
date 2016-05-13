@@ -80,7 +80,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
     self.composer = null;
     self.interactiveScene = null;
     self.rayScene = null;
-    this.renderer.alpha = true;
+    self.my_renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
 
     self.IMeshes = {};
 
@@ -125,7 +125,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
         this.fsqScene.add(quad);
         
         //POSTPROCESING
-        			this.composer = new THREE.EffectComposer( this.renderer );
+        			this.composer = new THREE.EffectComposer( this.my_renderer );
         			var renderPass = new THREE.RenderPass( this.fsqScene, this.RTTCamera ); 
         			this.composer.addPass( renderPass );
         			
@@ -148,9 +148,9 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
 
     self.IllustrativeRenderer = function () {
         if (!this.imgOverride) {
-            this.renderer.clear(true, false, false);
-            this.renderer.render(this.fsqScene, this.RTTCamera);
-            this.renderer.render(self.debugRays ? this.rayScene : this.interactiveScene, this.camera);
+            this.my_renderer.clear(true, false, false);
+            this.my_renderer.render(this.fsqScene, this.RTTCamera);
+            this.my_renderer.render(self.debugRays ? this.rayScene : this.interactiveScene, this.camera);
             this.composer.render();
         }
     }
