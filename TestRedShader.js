@@ -239,7 +239,7 @@ THREE.TestRedShader = {
 
             };
 */
-/*
+
 //x ray shader - nefunkcny, vsetko je modre
 THREE.TestRedShader = {
 
@@ -292,9 +292,9 @@ uniforms: {
 	        "}"
 	].join("\n")
 };
-*/
 
 
+/* posledny toon shader -  intenzita stale nula
  THREE.TestRedShader = {
 
     uniforms: {
@@ -349,4 +349,4 @@ uniforms: {
     ].join("\n")
 
 };
-
+*/
