@@ -75,7 +75,7 @@ void main() {\
 
 function IllustrativeRenderer(domQuery) { //for a whole window call with domQuery "<body>"
     //inherit the base class
-    var self = new BasicThreeRenderer(domQuery, true);
+    var self = new BasicThreeRenderer1(domQuery, true);
 
     self.composer = null;
     self.interactiveScene = null;
