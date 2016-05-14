@@ -464,12 +464,16 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
 
         //Full Screen Quad
         this.fsqScene = new THREE.Scene();
+        THREE.ImageUtils.crossOrigin = '';
+	var obr1 = THREE.ImageUtils.loadTexture('https://rawgit.com/fejes6/RenderViews/master/hatch_0.jpg');
+	var obr2 = THREE.ImageUtils.loadTexture('https://rawgit.com/fejes6/RenderViews/master/hatch_1.jpg');
+	var obr3 = THREE.ImageUtils.loadTexture('https://rawgit.com/fejes6/RenderViews/master/hatch_2.jpg');
         
         this.fullScreenQuadMaterial = new THREE.ShaderMaterial({
             uniforms: { tDiffuse: { type: "t", value: this.basicRTT },
-            		"hatch0": { type: "t", value: THREE.ImageUtils.loadTexture( "https://rawgit.com/fejes6/RenderViews/master/hatch_0.jpg" ) },
-        		"hatch1": { type: "t", value: THREE.ImageUtils.loadTexture( "https://rawgit.com/fejes6/RenderViews/master/hatch_1.jpg" ) },
-        		"hatch2": { type: "t", value: THREE.ImageUtils.loadTexture( "https://rawgit.com/fejes6/RenderViews/master/hatch_2.jpg" ) }
+            		"hatch0": { type: "t", value: this.obr1 },
+        		"hatch1": { type: "t", value: this.obr2 },
+        		"hatch2": { type: "t", value: this.obr3 }
             },
             vertexShader: fsqVertex,
             fragmentShader: fsqFragment,
