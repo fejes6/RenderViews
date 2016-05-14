@@ -78,6 +78,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
     //inherit the base class
     var self = new BasicThreeRenderer(domQuery, true);
 
+self.composer2 = null;
     self.composer = null;
     self.interactiveScene = null;
     self.rayScene = null;
@@ -146,6 +147,14 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
 				
 				//effect.renderToScreen = true;
 				//this.composer.addPass( effect );
+				this.composer2 = new THREE.EffectComposer( this.renderer );
+        			var renderPass2 = new THREE.RenderPass( this.scene, this.camera ); 
+        			this.composer2.addPass( renderPass2 );
+        			
+        			var effect2 = new THREE.ShaderPass( THREE.TestHatchShader );
+   
+        			effect2.renderToScreen = true;
+        			this.composer2.addPass( effect2 );
     });
 
     self.IllustrativeRenderer = function () {
@@ -158,7 +167,11 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
             } else {
                 // not checked
             }
-
+            if ($("#effect2").is(':checked')) {
+                this.composer2.render();
+            } else {
+                // not checked
+            }
         }
     }
 
