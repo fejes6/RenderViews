@@ -709,7 +709,7 @@ THREE.TestRedShader = {
  			"float S = (cnv[4] + cnv[5]) + (cnv[6] + cnv[7]) + (cnv[8] + M);", 
  
  
- 			"gl_FragColor = vec4(abs((vec3(sqrt(M/S)))-1), 1.0);", 
+ 			"gl_FragColor = vec4(vec3(abs((sqrt(M/S))-1)), 1.0);", 
  		"}", 
  
  
