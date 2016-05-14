@@ -536,3 +536,4 @@ THREE.TestRedShader = {
 
 
     ].join("\n")
+};
