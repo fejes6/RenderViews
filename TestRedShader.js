@@ -500,10 +500,12 @@ THREE.TestRedShader = {
 	"uniform vec3 ec_light_dir;",
 	"uniform mat3 normal_matrix;",                    ///
 	"varying float intensity;",
+	"varying vec3 aa;",
 	"attribute vec3 a_normal;",
 	"void main() {",
 	        "vec3 ec_normal = normalize(normal_matrix * a_normal);",           ///
 		"intensity = dot(ec_light_dir,ec_normal);",
+		"aa = a_normal;",
 	"vUv = uv;",
 		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 
@@ -515,7 +517,7 @@ THREE.TestRedShader = {
 
     "uniform sampler2D tDiffuse;",
     "varying vec2 vUv;",
-
+"varying vec3 aa;",
 	"varying float intensity;",
 	"attribute vec3 a_normal;",
 
@@ -532,7 +534,7 @@ THREE.TestRedShader = {
 //			"color = vec4(color.r*0.4,color.g*0.2,color.b*0.2,1.0);",
 			"color = vec4(0.4,0.2,0.2,1.0);",
 		"else",
-			"color = vec4(a_normal.r,a_normal.g,a_normal.b,1.0);",
+			"color = vec4(aa.r,aa.g,aa.b,1.0);",
 //			"color = vec4(0.2,0.1,0.1,1.0);",
 		"gl_FragColor = color;",
 
