@@ -531,26 +531,32 @@ THREE.TestRedShader = {
 
 "uniform vec3 WarmColour;",
 "uniform vec3 CoolColour;",
-"uniform vec3 SurfaceColour;",
+//"uniform vec3 SurfaceColour;",
 "uniform float OutlineWidth;",
 
 "varying vec3 N;",
 "varying vec3 P;",
 "varying vec3 V;",
 "varying vec3 L;",
+    "uniform sampler2D tDiffuse;",
+    "varying vec2 vUv;",
 
+	
+
+	
+	
 "void main()",
 "{",
     "vec3 l = normalize(L);",
     "vec3 n = normalize(N);",
     "vec3 v = normalize(V);",
     "vec3 h = normalize(l+v);",
-    
+    	"vec4 SurfaceColour = texture2D(tDiffuse, vUv);",
     "float diffuse = dot(l,n);",
     "float specular = pow(max(dot(n,h), 0.0),32.0);",
     
-    "vec3 cool = min(CoolColour+SurfaceColour,1.0);",
-    "vec3 warm = min(WarmColour+SurfaceColour,1.0);",
+    "vec3 cool = min(CoolColour+SurfaceColour.rgb,1.0);",
+    "vec3 warm = min(WarmColour+SurfaceColour.rgb,1.0);",
     
     "vec3 colour = min(mix(cool,warm,diffuse)+specular,1.0);",
     
