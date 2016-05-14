@@ -492,10 +492,10 @@ THREE.TestRedShader = {
     uniforms: {
         "tDiffuse": { type: "t", value: null },
         //"amount":     { type: "f", value: 0.25 }
-        "u_objectColor":     { type: "v3", value: new THREE.Vector3(1, 1, 1)  }, //nastav
-        "u_coolColor":     { type: "v3", value: new THREE.Vector3(159.0/255, 148.0/255, 255.0/255) },
-        "u_warmColor":     { type: "v3", value: new THREE.Vector3(255.0/255, 75.0/255, 75.0/255)  },
-        "u_alpha":     { type: "f", value: 0.25 },
+        "SurfaceColour":     { type: "v3", value: new THREE.Vector3(1, 1, 1)  }, //nastav
+        "CoolColour":     { type: "v3", value: new THREE.Vector3(159.0/255, 148.0/255, 255.0/255) },
+        "WarmColour":     { type: "v3", value: new THREE.Vector3(255.0/255, 75.0/255, 75.0/255)  },
+        "OutlineWidth":     { type: "f", value: 0.25 },
         "u_beta":     { type: "f", value: 0.5 }
     },
 
@@ -504,65 +504,60 @@ THREE.TestRedShader = {
 	"uniform mat3 normal_matrix;",                    ///
 
 	"attribute vec3 a_normal;",
-
+	"attribute vec4  a_vertex;", 
+"varying vec2 vUv;",
 	        
 
-    "varying vec2 vUv;",
-    "void main() {",
-    "vec3 ec_normal = normalize(normal_matrix * a_normal);",   
-        "vUv = uv;",
-        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+   
+"uniform vec3 LightPos;",
+"varying vec3 N;",
+"varying vec3 P;",
+"varying vec3 V;",
+"varying vec3 L;",
 
-    "}"
-
+"void main()",
+"{",
+	"vUv = uv;",",
+    "N = normalize(normal_matrix*a_normal);",
+    "P = a_vertex.xyz;",
+    "V = -vec3(modelViewMatrix*a_vertex);",
+	"L = vec3(modelViewMatrix*(vec4(ec_light_dir,1)-a_vertex));",
+    "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+"}"
     ].join("\n"),
 
     fragmentShader: [
-// data from vertex shader
 
 
-// diffuse color of the object
-"uniform vec3 u_objectColor;",
-// cool color of gooch shading
-"uniform vec3 u_coolColor;",
-// warm color of gooch shading
-"uniform vec3 u_warmColor;",
-// how much to take from object color in final cool color
-"uniform float u_alpha;",
-// how much to take from object color in final warm color
-"uniform float u_beta;",
+"uniform vec3 WarmColour;",
+"uniform vec3 CoolColour;",
+"uniform vec3 SurfaceColour;",
+"uniform float OutlineWidth;",
 
+"varying vec3 N;",
+"varying vec3 P;",
+"varying vec3 V;",
+"varying vec3 L;",
 
-
-///////////////////////////////////////////////////////////
-
-"void main(void)",
+"void main()",
 "{",
-   // normlize vectors for lighting
-   "vec3 normalVector = normalize(a_normal);",
-   "vec3 lightVector = normalize(ec_light_dir);",
-   // intensity of diffuse lighting [-1, 1]
-   "float diffuseLighting = dot(lightVector, normalVector);",
-   // map intensity of lighting from range [-1; 1] to [0, 1]
-   "float = (1.0 + diffuseLighting)/2;",
+    "vec3 l = normalize(L);",
+    "vec3 n = normalize(N);",
+    "vec3 v = normalize(V);",
+    "vec3 h = normalize(l+v);",
+    
+    "float diffuse = dot(l,n);",
+    "float specular = pow(max(dot(n,h), 0.0),32.0);",
+    
+    "vec3 cool = min(CoolColour+SurfaceColour,1.0);",
+    "vec3 warm = min(WarmColour+SurfaceColour,1.0);",
+    
+    "vec3 colour = min(mix(cool,warm,diffuse)+specular,1.0);",
+    
+    "if (dot(n,v)<OutlineWidth) colour=vec3(0,0,0);",
 
-   //////////////////////////////////////////////////////////////////
-
-   // cool color mixed with color of the object
-   "vec3 coolColorMod = u_coolColor + u_objectColor * u_alpha;",
-   // warm color mixed with color of the object
-   "vec3 warmColorMod = u_warmColor + u_objectColor * u_beta;",
-   // interpolation of cool and warm colors according
-   // to lighting intensity. The lower the light intensity,
-   // the larger part of the cool color is used
-   "vec3 colorOut = mix(coolColorMod, warmColorMod, interpolationValue);",
-
-   //////////////////////////////////////////////////////////////////
-
-   // save color
-   "gl_Position.rgb = colorOut;",
-   "gl_Position.a = 1;",
-"} "
+    "gl_FragColor = vec4(colour,1);",
+"}"
 
 
     ].join("\n")
