@@ -517,6 +517,7 @@ THREE.TestRedShader = {
     "varying vec2 vUv;",
 
 	"varying float intensity;",
+	"attribute vec3 a_normal;",
 
 	"void main() {",
 		"vec4 color = texture2D(tDiffuse, vUv);",
@@ -531,8 +532,8 @@ THREE.TestRedShader = {
 //			"color = vec4(color.r*0.4,color.g*0.2,color.b*0.2,1.0);",
 			"color = vec4(0.4,0.2,0.2,1.0);",
 		"else",
-//			"color = vec4(a_normal.r,a_normal.g,a_normal.b,1.0);",
-			"color = vec4(0.2,0.1,0.1,1.0);",
+			"color = vec4(a_normal.r,a_normal.g,a_normal.b,1.0);",
+//			"color = vec4(0.2,0.1,0.1,1.0);",
 		"gl_FragColor = color;",
 
 
