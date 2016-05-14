@@ -486,3 +486,53 @@ THREE.TestRedShader = {
 
 };
 */
+
+THREE.TestRedShader = {
+
+    uniforms: {
+        "tDiffuse": { type: "t", value: null },
+        //"amount":     { type: "f", value: 0.25 }
+        "vx_offset":     { type: "f", value: 0.25 }, //nastav
+        "rt_w":     { type: "f", value: 512 },
+        "rt_h":     { type: "f", value: 512 },
+        "hatch_y_offset":     { type: "f", value: 5.0 },
+        "lum_threshold_1":     { type: "f", value: 1.0 },
+        "lum_threshold_2":     { type: "f", value: 0.7 },
+        "lum_threshold_3":     { type: "f", value: 0.5 },
+        "lum_threshold_4":     { type: "f", value: 0.3 }
+
+    },
+
+    vertexShader: [
+
+    "varying vec2 vUv;",
+    "void main() {",
+        "vUv = uv;",
+        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+
+    "}"
+
+    ].join("\n"),
+
+    fragmentShader: [
+	"vec3 SurfaceColor = vec3(0.75, 0.75, 0.75);",
+	"vec3 WarmColor    = vec3(0.1, 0.4, 0.8);",
+	"vec3 CoolColor    = vec3(0.6, 0.0, 0.0);",
+	"float DiffuseWarm = 0.45;",
+	"float DiffuseCool = 0.045;",
+	"varying float NdotL;",
+	"varying vec3 ReflectVec;",
+	"varying vec3 ViewVec;",
+	"void main() {",
+	  "vec3 kcool    = min(CoolColor + DiffuseCool * vec3(gl_Color), 1.0);",
+	  "vec3 kwarm    = min(WarmColor + DiffuseWarm * vec3(gl_Color), 1.0);",
+	  "vec3 kfinal   = mix(kcool, kwarm, NdotL) * gl_Color.a;",
+	  "vec3 nreflect = normalize(ReflectVec);",
+	  "vec3 nview    = normalize(ViewVec);",
+	 "float spec    = max(dot(nreflect, nview), 0.0);",
+	  "spec          = pow(spec, 32.0);",
+	  "gl_FragColor = vec4(min(kfinal + spec, 1.0), 1.0);",
+	"}"
+
+
+    ].join("\n")
