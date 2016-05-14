@@ -1,4 +1,4 @@
-
+/*
 THREE.TestHatchShader = {
     uniforms: {
         "tDiffuse": { type: "t", value: null },
@@ -66,7 +66,7 @@ THREE.TestHatchShader = {
     "}"
     ].join("\n")
 };
-
+*/
 /*
 // sketch filter s pouzitim sobelovho operatora -- ok
 THREE.TestHatchShader = {
@@ -133,3 +133,58 @@ THREE.TestHatchShader = {
     ].join("\n")
 };
 */
+THREE.TestHatchShader = {
+    uniforms: {
+        "tDiffuse": { type: "t", value: null },
+        //"amount":     { type: "f", value: 0.25 }
+        "vx_offset":     { type: "f", value: 0.25 }, //nastav
+        "rt_w":     { type: "f", value: 512 },
+        "rt_h":     { type: "f", value: 512 },
+        "hatch_y_offset":     { type: "f", value: 5.0 },
+        "lum_threshold_1":     { type: "f", value: 1.0 },
+        "lum_threshold_2":     { type: "f", value: 0.7 },
+        "lum_threshold_3":     { type: "f", value: 0.5 },
+        "lum_threshold_4":     { type: "f", value: 0.3 }
+    },
+    vertexShader: [
+    "varying vec2 vUv;",
+    "void main() {",
+        "vUv = uv;",
+        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+    "}"
+    ].join("\n"),
+    fragmentShader: [
+"uniform sampler2D tDiffuse;", // 0
+"varying vec2 vUv;",
+"void main()",
+"{",
+    "float lum = length(texture2D(tDiffuse, vUv).rgb);",
+     
+    "gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
+     
+    "if (lum < 0.85) {",
+        "if (mod(gl_FragCoord.x + gl_FragCoord.y, 10.0) == 0.0) {",
+            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
+        "}",
+    "}",
+     
+    "if (lum < 0.75) {",
+        "if (mod(gl_FragCoord.x - gl_FragCoord.y, 10.0) == 0.0) {",
+            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
+        "}",
+    "}",
+     
+    "if (lum < 0.50) {",
+        "if (mod(gl_FragCoord.x + gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
+            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
+        "}",
+    "}",
+     
+    "if (lum < 0.3) {",
+        "if (mod(gl_FragCoord.x - gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
+            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
+        "}",
+    "}",
+"}"
+    ].join("\n")
+};
