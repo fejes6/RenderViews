@@ -539,8 +539,8 @@ THREE.TestRedShader = {
 "void main(void)",
 "{",
    // normlize vectors for lighting
-   "vec3 normalVector = normalize(o_normal);",
-   "vec3 lightVector = normalize(o_lightVector);",
+   "vec3 normalVector = normalize(a_normal);",
+   "vec3 lightVector = normalize(ec_light_dir);",
    // intensity of diffuse lighting [-1, 1]
    "float diffuseLighting = dot(lightVector, normalVector);",
    // map intensity of lighting from range [-1; 1] to [0, 1]
