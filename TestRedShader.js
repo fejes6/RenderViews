@@ -418,7 +418,7 @@ uniforms: {
 
 };
 */
-/*ciernobiely cross-hatch shader
+//ciernobiely cross-hatch shader
 THREE.TestRedShader = {
 
     uniforms: {
@@ -456,7 +456,8 @@ THREE.TestRedShader = {
      
     "gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
      
-    "if (lum < 1.00) {",
+//    "if (lum < 1.00) {",
+    "if (lum < 0.85) {",
         "if (mod(gl_FragCoord.x + gl_FragCoord.y, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
         "}",
@@ -474,7 +475,7 @@ THREE.TestRedShader = {
         "}",
     "}",
      
-    "if (lum < 0.3) {",
+    "if (lum < 0.25) {",
         "if (mod(gl_FragCoord.x - gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
         "}",
@@ -485,61 +486,4 @@ THREE.TestRedShader = {
     ].join("\n")
 
 };
-*/
 
- THREE.TestRedShader = {
-
-    uniforms: {
-        "tDiffuse": { type: "t", value: null },
-        //"amount":     { type: "f", value: 0.25 }
-    },
-
-    vertexShader: [
-
-        "varying vec2 vUv;",
-	"uniform vec3 ec_light_dir;",
-	"uniform mat3 normal_matrix;",                    ///
-	"varying float intensity;",
-	"varying vec3 aa;",
-	"attribute vec3 a_normal;",
-	"void main() {",
-	        "vec3 ec_normal = normalize(normal_matrix * a_normal);",           ///
-		"intensity = dot(ec_light_dir,ec_normal);",
-		"aa = a_normal;",
-	"vUv = uv;",
-		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
-
-    "}"
-
-    ].join("\n"),
-
-    fragmentShader: [
-
-    "uniform sampler2D tDiffuse;",
-    "varying vec2 vUv;",
-"varying vec3 aa;",
-	"varying float intensity;",
-
-	"void main() {",
-		"vec4 color = texture2D(tDiffuse, vUv);",
-		"if (abs(intensity) > 0.95)",
-	
-//			"color = vec4(color.r*1.0,color.g*0.5,color.b*0.5,1.0);",
-			"color = vec4(1.0,1.0,0.5,0.5);",
-		"else if (abs(intensity) > 0.5)",
-//			"color = vec4(color.r*0.6,color.g*0.3,color.b*0.3,1.0);
-			"color = vec4(0.6,0.3,0.3,1.0);",
-		"else if (abs(intensity) > 0.25)",
-//			"color = vec4(color.r*0.4,color.g*0.2,color.b*0.2,1.0);",
-			"color = vec4(0.4,0.2,0.2,1.0);",
-		"else",
-//			"color = vec4(aa.r,aa.g,aa.b,1.0);",
-			"color = vec4(0.2,0.1,0.1,1.0);",
-		"gl_FragColor = color;",
-
-
-    "}"
-
-    ].join("\n")
-
-};
