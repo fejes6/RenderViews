@@ -131,7 +131,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
         			var renderPass = new THREE.RenderPass( this.scene, this.camera ); 
         			this.composer.addPass( renderPass );
         			
-        			var effect = new THREE.ShaderPass( THREE.TestRedShader );
+        			var effect = new THREE.ShaderPass( THREE.EdgeShader );
    
         			effect.renderToScreen = true;
         			this.composer.addPass( effect );
