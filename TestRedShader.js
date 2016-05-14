@@ -419,6 +419,7 @@ uniforms: {
 };
 */
 //ciernobiely cross-hatch shader
+/*
 THREE.TestRedShader = {
 
     uniforms: {
@@ -456,7 +457,6 @@ THREE.TestRedShader = {
      
     "gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
      
-//    "if (lum < 1.00) {",
     "if (lum < 0.85) {",
         "if (mod(gl_FragCoord.x + gl_FragCoord.y, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
@@ -475,7 +475,7 @@ THREE.TestRedShader = {
         "}",
     "}",
      
-    "if (lum < 0.25) {",
+    "if (lum < 0.3) {",
         "if (mod(gl_FragCoord.x - gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
         "}",
@@ -486,4 +486,85 @@ THREE.TestRedShader = {
     ].join("\n")
 
 };
+*/
+THREE.TestRedShader = {
 
+    uniforms: {
+        "tDiffuse": { type: "t", value: null },
+        //"amount":     { type: "f", value: 0.25 }
+        "u_objectColor":     { type: "v3", value: new THREE.Vector3(1, 1, 1)  }, //nastav
+        "u_coolColor":     { type: "v3", value: new THREE.Vector3(159.0/255, 148.0/255, 255.0/255) },
+        "u_warmColor":     { type: "v3", value: new THREE.Vector3(255.0/255, 75.0/255, 75.0/255)  },
+        "u_alpha":     { type: "f", value: 0.25 },
+        "u_beta":     { type: "f", value: 0.5 }
+    },
+
+    vertexShader: [
+    	"uniform vec3 ec_light_dir;",
+	"uniform mat3 normal_matrix;",                    ///
+
+	"attribute vec3 a_normal;",
+
+	        
+
+    "varying vec2 vUv;",
+    "void main() {",
+    "vec3 ec_normal = normalize(normal_matrix * a_normal);",   
+        "vUv = uv;",
+        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+
+    "}"
+
+    ].join("\n"),
+
+    fragmentShader: [
+// data from vertex shader
+
+
+// diffuse color of the object
+"uniform vec3 u_objectColor;",
+// cool color of gooch shading
+"uniform vec3 u_coolColor;",
+// warm color of gooch shading
+"uniform vec3 u_warmColor;",
+// how much to take from object color in final cool color
+"uniform float u_alpha;",
+// how much to take from object color in final warm color
+"uniform float u_beta;",
+
+
+
+///////////////////////////////////////////////////////////
+
+"void main(void)",
+"{",
+   // normlize vectors for lighting
+   "vec3 normalVector = normalize(o_normal);",
+   "vec3 lightVector = normalize(o_lightVector);",
+   // intensity of diffuse lighting [-1, 1]
+   "float diffuseLighting = dot(lightVector, normalVector);",
+   // map intensity of lighting from range [-1; 1] to [0, 1]
+   "float = (1.0 + diffuseLighting)/2;",
+
+   //////////////////////////////////////////////////////////////////
+
+   // cool color mixed with color of the object
+   "vec3 coolColorMod = u_coolColor + u_objectColor * u_alpha;",
+   // warm color mixed with color of the object
+   "vec3 warmColorMod = u_warmColor + u_objectColor * u_beta;",
+   // interpolation of cool and warm colors according
+   // to lighting intensity. The lower the light intensity,
+   // the larger part of the cool color is used
+   "vec3 colorOut = mix(coolColorMod, warmColorMod, interpolationValue);",
+
+   //////////////////////////////////////////////////////////////////
+
+   // save color
+   "gl_Position.rgb = colorOut;",
+   "gl_Position.a = 1;",
+"} "
+
+
+    ].join("\n")
+
+};
