@@ -55,7 +55,7 @@ function IllustrativeRenderer(domQuery) { //for whole window call with domQuery 
 }
 */
 //*************************************************************************************************************************
-/*
+
 'use strict'
 var fsqVertex = 
 'varying vec2 vUv;\
@@ -167,7 +167,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
     });
 
     self.mouse = { x: 0, y: 0 }; //here we store the last mouse position. The mouse position is stored only when the mouse moves, but the scene is mostly updated with a much higher frequence
-*/
+
 /*
     self.onDocumentMouseMove = function onDocumentMouseMove( event ) 
     {
@@ -366,11 +366,11 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
         }
     });
 */
-/*
+
     return self;
 }
 
-*/
+/*
 
 'use strict'
 var fsqVertex = 
@@ -485,7 +485,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
         quad.dynamic = true;
         quad.position.z = -1;
         this.fsqScene.add(quad);
-/*        
+        
         //POSTPROCESING
        // this.my_renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true});
         			this.composer = new THREE.EffectComposer( this.renderer );
@@ -496,7 +496,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
    
         			effect.renderToScreen = true;
         			this.composer.addPass( effect );
-*/
+
 //				var effect = new THREE.ShaderPass( THREE.TestRedShader );
             			//effect.uniforms[ 'amount' ].value = 0.75;
 //test 2 ok				effect.uniforms[ 'scale' ].value = 4;
@@ -726,10 +726,11 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
         }
     });
 */
+/*
     return self;
 }
 
-
+*/
 
 
 
