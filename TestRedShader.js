@@ -491,52 +491,58 @@ THREE.TestRedShader = {
 
     uniforms: {
         "tDiffuse": { type: "t", value: null },
-        //"amount":     { type: "f", value: 0.25 }
-        "vx_offset":     { type: "f", value: 0.25 }, //nastav
-        "rt_w":     { type: "f", value: 512 },
-        "rt_h":     { type: "f", value: 512 },
-        "hatch_y_offset":     { type: "f", value: 5.0 },
-        "lum_threshold_1":     { type: "f", value: 1.0 },
-        "lum_threshold_2":     { type: "f", value: 0.7 },
-        "lum_threshold_3":     { type: "f", value: 0.5 },
-        "lum_threshold_4":     { type: "f", value: 0.3 }
+ THREE.TestRedShader = {
 
+    uniforms: {
+        "tDiffuse": { type: "t", value: null },
+        //"amount":     { type: "f", value: 0.25 }
     },
 
     vertexShader: [
 
-    "varying vec2 vUv;",
-    "void main() {",
-        "vUv = uv;",
-        "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
+        "varying vec2 vUv;",
+	"uniform vec3 ec_light_dir;",
+	"uniform mat3 normal_matrix;",                    ///
+	"varying float intensity;",
+	"attribute vec3 a_normal;",
+	"void main() {",
+	        "vec3 ec_normal = normalize(normal_matrix * a_normal);",           ///
+		"intensity = dot(ec_light_dir,ec_normal);",
+	"vUv = uv;",
+		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
 
     "}"
 
     ].join("\n"),
 
     fragmentShader: [
-	"vec3 SurfaceColor = vec3(0.75, 0.75, 0.75);",
-	"vec3 WarmColor    = vec3(0.1, 0.4, 0.8);",
-	"vec3 CoolColor    = vec3(0.6, 0.0, 0.0);",
-	"float DiffuseWarm = 0.45;",
-	"float DiffuseCool = 0.045;",
-	"uniform sampler2D tDiffuse;", // 0
-"varying vec2 vUv;",
-	"varying float NdotL;",
-	"varying vec3 ReflectVec;",
-	"varying vec3 ViewVec;",
-	"void main() {",
-	"vec4 color = texture2D(tDiffuse, vUv);",
-	  "vec3 kcool    = min(CoolColor + DiffuseCool * vec3(color), 1.0);",
-	  "vec3 kwarm    = min(WarmColor + DiffuseWarm * vec3(color), 1.0);",
-	  "vec3 kfinal   = mix(kcool, kwarm, NdotL) * color.a;",
-	  "vec3 nreflect = normalize(ReflectVec);",
-	  "vec3 nview    = normalize(ViewVec);",
-	 "float spec    = max(dot(nreflect, nview), 0.0);",
-	  "spec          = pow(spec, 32.0);",
-	  "gl_FragColor = vec4(min(kfinal + spec, 1.0), 1.0);",
-	"}"
 
+    "uniform sampler2D tDiffuse;",
+    "varying vec2 vUv;",
+
+	"varying float intensity;",
+	"attribute vec3 a_normal;",
+
+	"void main() {",
+		"vec4 color = texture2D(tDiffuse, vUv);",
+		"if (intensity > 0.95)",
+	
+//			"color = vec4(color.r*1.0,color.g*0.5,color.b*0.5,1.0);",
+			"color = vec4(1.0,1.0,0.5,0.5);",
+		"else if (intensity > 0.5)",
+//			"color = vec4(color.r*0.6,color.g*0.3,color.b*0.3,1.0);
+			"color = vec4(0.6,0.3,0.3,1.0);",
+		"else if (intensity > 0.25)",
+//			"color = vec4(color.r*0.4,color.g*0.2,color.b*0.2,1.0);",
+			"color = vec4(0.4,0.2,0.2,1.0);",
+		"else",
+			"color = vec4(a_normal.r,a_normal.g,a_normal.b,1.0);",
+//			"color = vec4(0.2,0.1,0.1,1.0);",
+		"gl_FragColor = color;",
+
+
+    "}"
 
     ].join("\n")
+
 };
