@@ -498,11 +498,11 @@ THREE.TestRedShader = {
 
         "varying vec2 vUv;",
 	"uniform vec3 ec_light_dir;",
-	"uniform mat3 normalMatrix;",                    ///
+	"uniform mat3 normal_matrix;",                    ///
 	"varying float intensity;",
-	"attribute vec3 normal;",
+	"attribute vec3 a_normal;",
 	"void main() {",
-	        "vec3 ec_normal = normalize(normalMatrix * normal);",           ///
+	        "vec3 ec_normal = normalize(normal_matrix * a_normal);",           ///
 		"intensity = dot(ec_light_dir,ec_normal);",
 	"vUv = uv;",
 		"gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );",
