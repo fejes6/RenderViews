@@ -519,7 +519,6 @@ THREE.TestRedShader = {
     "varying vec2 vUv;",
 "varying vec3 aa;",
 	"varying float intensity;",
-	"attribute vec3 a_normal;",
 
 	"void main() {",
 		"vec4 color = texture2D(tDiffuse, vUv);",
