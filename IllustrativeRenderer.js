@@ -153,7 +153,12 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
             this.renderer.clear(true, false, false);
             this.renderer.render(this.fsqScene, this.RTTCamera);
             this.renderer.render(self.debugRays ? this.rayScene : this.interactiveScene, this.camera);
-            this.composer.render();
+            if ($("#effect").is(':checked')) {
+                this.composer.render();
+            } else {
+                // not checked
+            }
+
         }
     }
 
