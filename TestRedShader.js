@@ -517,6 +517,7 @@ THREE.TestRedShader = {
 
 "void main()",
 "{",
+"console.log(a_normal);",
 	"vUv = uv;",
     "N = normalize(normal_matrix*a_normal);",
     "P = a_vertex.xyz;",
