@@ -180,7 +180,7 @@ THREE.TestHatchShader = {
         "}",
     "}",
      
-    "if (lum < 0.3) {",
+    "if (lum < 0.45) {",
         "if (mod(gl_FragCoord.x - gl_FragCoord.y - 5.0, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
         "}",
