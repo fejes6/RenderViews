@@ -78,11 +78,15 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
     //inherit the base class
     var self = new BasicThreeRenderer(domQuery, true);
 
-self.composer2 = null;
+
     self.composer = null;
     self.interactiveScene = null;
     self.rayScene = null;
     self.my_renderer = null;
+    self.composer2 = null;
+    self.composer3 = null;
+    self.composer4 = null;
+    self.composer5 = null;
 
     self.IMeshes = {};
 
