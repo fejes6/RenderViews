@@ -132,7 +132,7 @@ self.composer2 = null;
         			var renderPass = new THREE.RenderPass( this.scene, this.camera ); 
         			this.composer.addPass( renderPass );
         			
-        			var effect = new THREE.ShaderPass( THREE.EdgeShader );
+        			var effect = new THREE.ShaderPass( THREE.EdgeSobelShader );
    
         			effect.renderToScreen = true;
         			this.composer.addPass( effect );
@@ -150,11 +150,30 @@ self.composer2 = null;
 				this.composer2 = new THREE.EffectComposer( this.renderer );
         			var renderPass2 = new THREE.RenderPass( this.scene, this.camera ); 
         			this.composer2.addPass( renderPass2 );
-        			
-        			var effect2 = new THREE.ShaderPass( THREE.TestHatchShader );
-   
+        			var effect2 = new THREE.ShaderPass( THREE.EdgeFreiChenShader );
         			effect2.renderToScreen = true;
         			this.composer2.addPass( effect2 );
+        			//------------------------
+        			this.composer3 = new THREE.EffectComposer( this.renderer );
+        			var renderPass3 = new THREE.RenderPass( this.scene, this.camera ); 
+        			this.composer3.addPass( renderPass3 );
+        			var effect3 = new THREE.ShaderPass( THREE.EdgeEmphasizingShader  );
+        			effect3.renderToScreen = true;
+        			this.composer3.addPass( effect3 );
+        			//------------------------
+        			this.composer4 = new THREE.EffectComposer( this.renderer );
+        			var renderPass4 = new THREE.RenderPass( this.scene, this.camera ); 
+        			this.composer4.addPass( renderPass4 );
+        			var effect4 = new THREE.ShaderPass( THREE.TestHatchShader );
+        			effect4.renderToScreen = true;
+        			this.composer4.addPass( effect4 );
+        			//------------------------
+        			this.composer5 = new THREE.EffectComposer( this.renderer );
+        			var renderPass5 = new THREE.RenderPass( this.scene, this.camera ); 
+        			this.composer5.addPass( renderPass5 );
+        			var effect5 = new THREE.ShaderPass( THREE.TestRedShader );
+        			effect5.renderToScreen = true;
+        			this.composer5.addPass( effect5 );
     });
 
     self.IllustrativeRenderer = function () {
@@ -164,13 +183,18 @@ self.composer2 = null;
             this.renderer.render(self.debugRays ? this.rayScene : this.interactiveScene, this.camera);
             if ($("#effect").is(':checked')) {
                 this.composer.render();
-            } else {
-                // not checked
             }
             if ($("#effect2").is(':checked')) {
                 this.composer2.render();
-            } else {
-                // not checked
+            }
+            if ($("#effect3").is(':checked')) {
+                this.composer2.render();
+            }
+            if ($("#effect4").is(':checked')) {
+                this.composer2.render();
+            }
+            if ($("#effect5").is(':checked')) {
+                this.composer2.render();
             }
         }
     }
