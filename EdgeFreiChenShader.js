@@ -94,14 +94,6 @@ THREE.EdgeShader = {
 
 };
 */
-/**
- * @author zz85 / https://github.com/zz85 | https://www.lab4games.net/zz85/blog
- *
- * Edge Detection Shader using Sobel filter
- * Based on http://rastergrid.com/blog/2011/01/frei-chen-edge-detector
- *
- * aspect: vec2 of (1/width, 1/height)
- */
 /* 
 THREE.EdgeShader = {
 
@@ -148,14 +140,6 @@ THREE.EdgeShader = {
 			"G[0] = g0;",
 			"G[1] = g1;",
 
-			// fetch the 3x3 neighbourhood and use the RGB vector's length as intensity value 
-			//"for (float i=0.0; i<3.0; i++)",
-			//"for (float j=0.0; j<3.0; j++) {",
-			//	"sample = texture2D( tDiffuse, vUv + texel * vec2(i-1.0,j-1.0) ).rgb;",
-				//"int a = int(i);",
-				//"int b = int(j);",
-			//	"I[int(i)][int(j)] = length(sample);",
-			//"}",
 			//////////////////////////////////////////////////////////////////
 			//0 0
 			"sample = texture2D( tDiffuse, vUv + texel * vec2(0.0-1.0,0.0-1.0) ).rgb;",
