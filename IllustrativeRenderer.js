@@ -188,13 +188,13 @@ self.composer2 = null;
                 this.composer2.render();
             }
             if ($("#effect3").is(':checked')) {
-                this.composer2.render();
+                this.composer3.render();
             }
             if ($("#effect4").is(':checked')) {
-                this.composer2.render();
+                this.composer4.render();
             }
             if ($("#effect5").is(':checked')) {
-                this.composer2.render();
+                this.composer5.render();
             }
         }
     }
