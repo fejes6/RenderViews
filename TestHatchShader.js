@@ -160,18 +160,16 @@ THREE.TestHatchShader = {
 "{",
     "float lum = length(texture2D(tDiffuse, vUv).rgb);",
      
-        "if (mod(gl_FragCoord.x - gl_FragCoord.y - 2.0, 10.0) == 0.0) {",
-            "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
-        "}",
-//    "gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
+
+    "gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);",
      
-    "if (lum < 0.98) {",
+    "if (lum < 1.10) {",
         "if (mod(gl_FragCoord.x + gl_FragCoord.y, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
         "}",
     "}",
      
-    "if (lum < 0.85) {",
+    "if (lum < 0.90) {",
         "if (mod(gl_FragCoord.x - gl_FragCoord.y, 10.0) == 0.0) {",
             "gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);",
         "}",
