@@ -218,7 +218,7 @@ THREE.EdgeShader = {
 8  */ 
  
  
- THREE.EdgeShader = { 
+ THREE.EdgeFreiChenShader = { 
  
  
  	uniforms: { 
