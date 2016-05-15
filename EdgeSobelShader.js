@@ -1,3 +1,4 @@
+/*
 THREE.EdgeSobelShader = {
 	uniforms: {
 		"tDiffuse": { type: "t", value: null },
@@ -85,8 +86,8 @@ THREE.EdgeSobelShader = {
  *
  * aspect: vec2 of (1/width, 1/height)
  */
-/* 
-THREE.EdgeShader = {
+ 
+THREE.EdgeSobelShader = {
 	uniforms: {
 		"tDiffuse": { type: "t", value: null },
 		"aspect":    { type: "v2", value: new THREE.Vector2( 512, 512 ) },
