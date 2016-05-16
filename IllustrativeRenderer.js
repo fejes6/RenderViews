@@ -25,9 +25,7 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
     self.interactiveScene = null;
     self.rayScene = null;
     self.composer2 = null;
-    self.composer3 = null;
     self.composer4 = null;
-    self.composer5 = null;
 
     self.IMeshes = {};
 
@@ -83,26 +81,13 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
         			effect2.renderToScreen = true;
         			this.composer2.addPass( effect2 );
         			//------------------------
-        			this.composer3 = new THREE.EffectComposer( this.renderer );
-        			var renderPass3 = new THREE.RenderPass( this.scene, this.camera ); 
-        			this.composer3.addPass( renderPass3 );
-        			var effect3 = new THREE.ShaderPass( THREE.EdgeEmphasizingShader  );
-        			effect3.renderToScreen = true;
-        			this.composer3.addPass( effect3 );
-        			//------------------------
         			this.composer4 = new THREE.EffectComposer( this.renderer );
         			var renderPass4 = new THREE.RenderPass( this.scene, this.camera ); 
         			this.composer4.addPass( renderPass4 );
         			var effect4 = new THREE.ShaderPass( THREE.TestHatchShader );
         			effect4.renderToScreen = true;
         			this.composer4.addPass( effect4 );
-        			//------------------------
-        			this.composer5 = new THREE.EffectComposer( this.renderer );
-        			var renderPass5 = new THREE.RenderPass( this.scene, this.camera ); 
-        			this.composer5.addPass( renderPass5 );
-        			var effect5 = new THREE.ShaderPass( THREE.TestRedShader );
-        			effect5.renderToScreen = true;
-        			this.composer5.addPass( effect5 );
+
     });
 
     self.IllustrativeRenderer = function () {
@@ -116,14 +101,8 @@ function IllustrativeRenderer(domQuery) { //for a whole window call with domQuer
             if ($("#effect2").is(':checked')) {
                 this.composer2.render();
             }
-            if ($("#effect3").is(':checked')) {
-                this.composer3.render();
-            }
             if ($("#effect4").is(':checked')) {
                 this.composer4.render();
-            }
-            if ($("#effect5").is(':checked')) {
-                this.composer5.render();
             }
         }
     }
