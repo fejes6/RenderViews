@@ -78,33 +78,14 @@
  			"vec3 sample;", 
 
  			//////////////////////////////////////////////////////////////////
-			//0 0
-			"sample = texture2D( tDiffuse, vUv + texel * vec2(0.0-1.0,0.0-1.0) ).rgb;",
-			"I[int(0.0)][int(0.0)] = length(sample);",
-			//0 1
-			"sample = texture2D( tDiffuse, vUv + texel * vec2(0.0-1.0,1.0-1.0) ).rgb;",
-			"I[int(0.0)][int(1.0)] = length(sample);",
-			//0 2
-			"sample = texture2D( tDiffuse, vUv + texel * vec2(0.0-1.0,2.0-1.0) ).rgb;",
-			"I[int(0.0)][int(2.0)] = length(sample);",
-			//1 0
-			"sample = texture2D( tDiffuse, vUv + texel * vec2(1.0-1.0,0.0-1.0) ).rgb;",
-			"I[int(1.0)][int(0.0)] = length(sample);",
-			//1 1
-			"sample = texture2D( tDiffuse, vUv + texel * vec2(1.0-1.0,1.0-1.0) ).rgb;",
-			"I[int(1.0)][int(1.0)] = length(sample);",
-			//1 2
-			"sample = texture2D( tDiffuse, vUv + texel * vec2(1.0-1.0,2.0-1.0) ).rgb;",
-			"I[int(1.0)][int(2.0)] = length(sample);",
-			//2 0
-			"sample = texture2D( tDiffuse, vUv + texel * vec2(2.0-1.0,0.0-1.0) ).rgb;",
-			"I[int(2.0)][int(0.0)] = length(sample);",
-			//2 1
-			"sample = texture2D( tDiffuse, vUv + texel * vec2(2.0-1.0,1.0-1.0) ).rgb;",
-			"I[int(2.0)][int(1.0)] = length(sample);",
-			//2 2
-			"sample = texture2D( tDiffuse, vUv + texel * vec2(2.0-1.0,2.0-1.0) ).rgb;",
-			"I[int(2.0)][int(2.0)] = length(sample);",
+ 			for(inti=0;i<3;i++){
+for(intj=0;j<3;j++){
+sample=texture2D(tInput,vUv+texel*vec2(i­1,j­1)).rgb;
+I[i][j]=length(sample);
+}
+}
+
+
 			////////////////////////////////////////////////////////////////
  
  			"for (int i=0; i<9; i++) {", 
