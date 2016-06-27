@@ -78,12 +78,12 @@
  			"vec3 sample;", 
 
  			//////////////////////////////////////////////////////////////////
- 			"for(inti=0;i<3;i++){",
-"for(intj=0;j<3;j++){",
-"sample=texture2D(tInput,vUv+texel*vec2(i­1,j­1)).rgb;",
-"I[i][j]=length(sample);",
-"}",
-"}",
+ 			"for(int i=0;i<3;i++){",
+				"for(int j=0;j<3;j++){",
+				"sample = texture2D(tInput,vUv+texel*vec2(i-1,j-1)).rgb;",
+				"I[i][j] = length(sample);",
+				"}",
+			"}",
 
 
 			////////////////////////////////////////////////////////////////
